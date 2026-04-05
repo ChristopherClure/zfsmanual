@@ -1,0 +1,85 @@
+<!doctype html><html lang="en-US"><head>
+
+
+
+
+
+
+<!-- End Wayback Rewrite JS Include -->
+<meta charset="utf-8"><meta content="ie=edge" http-equiv="x-ua-compatible"><meta content="width=device-width,initial-scale=1,shrink-to-fit=no" name="viewport"><link as="font" crossorigin href="/fonts/vendor/jost/jost-v4-latin-regular.woff2" rel="preload" type="font/woff2"><link as="font" crossorigin href="/fonts/vendor/jost/jost-v4-latin-700.woff2" rel="preload" type="font/woff2"><link href="/main.css" rel="stylesheet"><meta content="index, follow" name="robots"><meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name="googlebot"><meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name="bingbot"><title>Replication | ZFS Handbook</title><meta content="Detailed guide to setting up ZFS replication for backups and high availability, covering both full and incremental replication." name="description"><link href="/docs/backup-and-recovery/replication/" rel="canonical"><script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    
+      
+      {
+        "@type": "ListItem",
+        "position":  1,
+        "name": "Home",
+        "item": "/"
+      },
+      
+        
+        
+        
+          
+          
+        
+        
+        
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Docs",
+          "item": "/docs/"
+        },
+        
+      
+        
+        
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+        
+        
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Backup And Recovery",
+          "item": "/docs/backup-and-recovery/"
+        },
+        
+      
+        
+        
+        
+          
+          
+        
+        
+        
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Replication",
+          "item": "/docs/backup-and-recovery/replication/"
+        }
+        
+      
+    
+  ]
+}
+</script><meta content="#fff" name="theme-color"><link href="//apple-icon-57x57.png" rel="apple-touch-icon" sizes="57x57"><link href="//apple-icon-60x60.png" rel="apple-touch-icon" sizes="60x60"><link href="//apple-icon-72x72.png" rel="apple-touch-icon" sizes="72x72"><link href="//apple-icon-76x76.png" rel="apple-touch-icon" sizes="76x76"><link href="//apple-icon-114x114.png" rel="apple-touch-icon" sizes="114x114"><link href="//apple-icon-120x120.png" rel="apple-touch-icon" sizes="120x120"><link href="//apple-icon-144x144.png" rel="apple-touch-icon" sizes="144x144"><link href="//apple-icon-152x152.png" rel="apple-touch-icon" sizes="152x152"><link href="//apple-icon-180x180.png" rel="apple-touch-icon" sizes="180x180"><link href="//android-icon-192x192.png" rel="icon" sizes="192x192" type="image/png"><link href="//favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"><link href="//favicon-96x96.png" rel="icon" sizes="96x96" type="image/png"><link href="//favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"><link href="//manifest.json" rel="manifest"><meta content="#ffffff" name="msapplication-TileColor"><meta content="/ms-icon-144x144.png" name="msapplication-TileImage"><link crossorigin href="/site.webmanifest" rel="manifest"><body class="docs single"><header class="navbar fixed-top navbar-expand-md navbar-light"><div class="container"><input class="menu-btn order-0" id="menu-btn" type="checkbox"><label class="menu-icon d-md-none" for="menu-btn"><span class="navicon"></span></label><a class="navbar-brand order-1 order-md-0 me-auto" href="/">ZFS Handbook</a><button aria-label="Toggle mode" class="btn btn-link order-2 order-md-4" id="mode" type="button"><span class="toggle-dark"><svg class="feather feather-moon" viewbox="0 0 24 24" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span> <span class="toggle-light"><svg class="feather feather-sun" viewbox="0 0 24 24" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="5"></circle><line x1="12" x2="12" y1="1" y2="3"></line><line x1="12" x2="12" y1="21" y2="23"></line><line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line><line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line><line x1="1" x2="3" y1="12" y2="12"></line><line x1="21" x2="23" y1="12" y2="12"></line><line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line><line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line></svg></span></button><ul class="navbar-nav fork-me order-3 order-md-5"></ul><div class="collapse navbar-collapse order-4 order-md-1"><ul class="navbar-nav main-nav me-auto order-5 order-md-2"><li class="nav-item docs active"><a class="nav-link" href="/docs/getting-started/introduction/">Handbook</a></ul><div class="break order-6 d-md-none"></div><form class="navbar-form flex-grow-1 order-7 order-md-3"><input aria-label="Search docs..." class="form-control is-search" placeholder="Search docs..." autocomplete="off" id="userinput" type="search"><div class="shadow bg-white rounded" id="suggestions"></div></form></div></div></header><div class="wrap container" role="document"><div class="content"><div class="row flex-xl-nowrap"><div class="col-lg-5 col-xl-4 docs-sidebar"><nav aria-label="Main navigation" class="docs-links"><h3>Getting Started</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/getting-started/introduction/">Introduction</a><li><a class="docs-link" href="/docs/getting-started/freebsd-install/">Installing ZFS (FreeBSD)</a><li><a class="docs-link" href="/docs/getting-started/linux-install/">Installing ZFS (Linux)</a></ul><h3>ZFS Architecture</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/zfs-architecture/basic-components/">Basic Components</a><li><a class="docs-link" href="/docs/zfs-architecture/zfs-architecture/">ZFS Architecture</a></ul><h3>ZFS Administration</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/zfs-administration/zpool-administration/">ZPOOL Administration</a><li><a class="docs-link" href="/docs/zfs-administration/zfs-administration/">ZFS Administration</a></ul><h3>Advanced ZFS</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/advanced-zfs/data-integrity-and-self-healing/">Data Integrity and Self-Healing</a><li><a class="docs-link" href="/docs/advanced-zfs/performance-tuning/">Performance Tuning</a><li><a class="docs-link" href="/docs/advanced-zfs/compression/">Compression</a><li><a class="docs-link" href="/docs/advanced-zfs/deduplication/">Deduplication</a></ul><h3>Security</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/security/encryption/">Encryption</a><li><a class="docs-link" href="/docs/security/access-control/">Access Control</a></ul><h3>Backup and Recovery</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/backup-and-recovery/disaster-recovery/">Disaster Recovery</a><li><a class="docs-link active" href="/docs/backup-and-recovery/replication/">Replication</a><li><a class="docs-link" href="/docs/backup-and-recovery/strategies/">Backup Strategies</a></ul><h3>ZFS in Production</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/production/enterprise/">Enterprise Deployment</a><li><a class="docs-link" href="/docs/production/large-scale/">Large Scale Deployments</a></ul><h3>Troubleshooting and Maintenance</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/troubleshooting/common-issues/">Common Issues and Solutions</a><li><a class="docs-link" href="/docs/troubleshooting/debugging/">Debugging ZFS</a></ul><h3>Migration Guides</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/migrating/btrfs/">BTRFS</a><li><a class="docs-link" href="/docs/migrating/ext4/">EXT4</a><li><a class="docs-link" href="/docs/migrating/lvm/">LVM</a><li><a class="docs-link" href="/docs/migrating/vxvm/">VxVM</a><li><a class="docs-link" href="/docs/migrating/xfs/">XFS</a></ul><h3>References</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/references/glossary/">Glossary</a><li><a class="docs-link" href="/docs/references/cheatsheet/">ZFS Cheat Sheet</a><li><a class="docs-link" href="/docs/references/command-reference/">ZFS Command Reference</a></ul><h3>Misceleaneous</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/misceleaneous/comparison/">FS &amp; LVM Comparison</a><li><a class="docs-link" href="/docs/misceleaneous/legal/">ZFS License and Legal Considerations</a></ul></nav></div><nav aria-label="Secondary navigation" class="docs-toc d-none d-xl-block col-xl-3"><div class="page-links"><h3>On this page</h3><nav id="TableOfContents"><ul><li><a href="/docs/backup-and-recovery/replication/#setting-up-and-managing-replication">Setting Up and Managing Replication</a><li><a href="/docs/backup-and-recovery/replication/#incremental-vs-full-replication">Incremental vs. Full Replication</a></li><ul><li><a href="/docs/backup-and-recovery/replication/#key-differences">Key Differences:</a></ul></ul></nav></div></nav><main class="docs-content col-lg-11 col-xl-9"><h1>Replication</h1><p>ZFS supports replication, allowing datasets to be copied to remote systems for backup, disaster recovery, or load balancing. Replication can be performed either as a full copy or incrementally, transferring only the changes made since the last replication. ZFS replication is efficient and can work with snapshots to provide point-in-time copies of data across systems.<h2 id="setting-up-and-managing-replication">Setting Up and Managing Replication</h2><p>To replicate a ZFS dataset, snapshots are used to capture the current state of the dataset. These snapshots are then sent to another system or disk using the <code>zfs send</code> and <code>zfs receive</code> commands. Replication can be performed over a network or to a local disk.<p>First, create a snapshot of the dataset:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zfs snapshot mypool/mydataset@snapshotname
+</span></code></pre><p>Once the snapshot is created, it can be replicated to another ZFS system. If replicating over the network, SSH is typically used to securely transfer the data. The following command sends the snapshot to the remote system <code>remotesystem</code> and receives it into the <code>remotepool</code> pool on that system:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zfs send mypool/mydataset@snapshotname | </span><span style="color:#bf616a">ssh</span><span> remotesystem sudo zfs receive remotepool/mydataset
+</span></code></pre><p>This command transfers the entire snapshot of <code>mypool/mydataset</code> to <code>remotepool/mydataset</code> on the remote system. This is a <strong>full replication</strong>, meaning the entire dataset is copied.<p>Managing replication involves regularly creating snapshots and sending incremental changes to the remote system. For recurring replication, a cron job or external scheduling system can be used to automate snapshot creation and sending.<p>To view a list of snapshots for managing replication, use:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zfs list</span><span style="color:#bf616a"> -t</span><span> snapshot
+</span></code></pre><p>This command will display all snapshots available for replication.<h2 id="incremental-vs-full-replication">Incremental vs. Full Replication</h2><p><strong>Full Replication</strong> involves transferring the entire dataset to the target system. This is done when there is no prior data on the remote system or when starting a new replication relationship. Full replication can be useful for the initial transfer of large datasets but may require significant time and resources.<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zfs send mypool/mydataset@snapshotname | </span><span style="color:#bf616a">ssh</span><span> remotesystem sudo zfs receive remotepool/mydataset
+</span></code></pre><p>This command transfers the full dataset to the target system.<p><strong>Incremental Replication</strong> only sends the changes (or "diffs") between two snapshots, reducing the amount of data that needs to be transferred. This is more efficient when keeping the remote system synchronized with the local dataset after the initial full replication has been completed. Incremental replication requires two snapshots: one to mark the starting point (the previous replication) and one for the current state.<p>For example, if <code>snapshot1</code> is the previous snapshot and <code>snapshot2</code> is the most recent snapshot, the following command sends only the changes between these two snapshots:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zfs send</span><span style="color:#bf616a"> -i</span><span> mypool/mydataset@snapshot1 mypool/mydataset@snapshot2 | </span><span style="color:#bf616a">ssh</span><span> remotesystem sudo zfs receive remotepool/mydataset
+</span></code></pre><p>This transfers only the differences between <code>snapshot1</code> and <code>snapshot2</code>, making incremental replication much faster and more bandwidth-efficient compared to full replication.<h3 id="key-differences">Key Differences:</h3><ul><li><p><strong>Full Replication</strong>: Transfers the entire dataset. Useful for initial replication or when a complete copy is needed.</p><li><p><strong>Incremental Replication</strong>: Transfers only the changes between two snapshots. More efficient for regular backups or ongoing synchronization.</p></ul><p>Both full and incremental replication can be automated using scripts or scheduling tools, allowing ZFS replication to serve as an efficient backup solution or disaster recovery strategy.<div class="docs-navigation d-flex justify-content-between"><a href="/docs/security/access-control/"> <div class="card my-1"><div class="card-body py-2">← Access Control</div></div> </a><a class="ms-auto" href="/docs/production/enterprise/"> <div class="card my-1"><div class="card-body py-2">Enterprise Deployment →</div></div> </a></div></main></div></div></div><footer class="footer text-muted"><div class="container"><div class="row"><div class="col-lg-8 order-last order-lg-first"><ul class="list-inline"><li class="list-inline-item">Powered by <a href="https://www.makesite.sh/">makesite.sh</a>, a <a href="https://www.dutchbsd.com/">DutchBSD B.V.</a> product.</ul></div><div class="col-lg-8 order-first order-lg-last text-lg-end"><ul class="list-inline"></ul></div></div></div></footer>

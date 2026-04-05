@@ -1,0 +1,109 @@
+<!doctype html><html lang="en-US"><head>
+
+
+
+
+
+
+<!-- End Wayback Rewrite JS Include -->
+<meta charset="utf-8"><meta content="ie=edge" http-equiv="x-ua-compatible"><meta content="width=device-width,initial-scale=1,shrink-to-fit=no" name="viewport"><link as="font" crossorigin href="/fonts/vendor/jost/jost-v4-latin-regular.woff2" rel="preload" type="font/woff2"><link as="font" crossorigin href="/fonts/vendor/jost/jost-v4-latin-700.woff2" rel="preload" type="font/woff2"><link href="/main.css" rel="stylesheet"><meta content="index, follow" name="robots"><meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name="googlebot"><meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name="bingbot"><title>Enterprise Deployment | ZFS Handbook</title><meta content="Best practices for deploying ZFS in enterprise environments, with a focus on high availability, scalability, and performance." name="description"><link href="/docs/production/enterprise/" rel="canonical"><script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    
+      
+      {
+        "@type": "ListItem",
+        "position":  1,
+        "name": "Home",
+        "item": "/"
+      },
+      
+        
+        
+        
+          
+          
+        
+        
+        
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Docs",
+          "item": "/docs/"
+        },
+        
+      
+        
+        
+        
+          
+          
+        
+        
+        
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Production",
+          "item": "/docs/production/"
+        },
+        
+      
+        
+        
+        
+          
+          
+        
+        
+        
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Enterprise",
+          "item": "/docs/production/enterprise/"
+        }
+        
+      
+    
+  ]
+}
+</script><meta content="#fff" name="theme-color"><link href="//apple-icon-57x57.png" rel="apple-touch-icon" sizes="57x57"><link href="//apple-icon-60x60.png" rel="apple-touch-icon" sizes="60x60"><link href="//apple-icon-72x72.png" rel="apple-touch-icon" sizes="72x72"><link href="//apple-icon-76x76.png" rel="apple-touch-icon" sizes="76x76"><link href="//apple-icon-114x114.png" rel="apple-touch-icon" sizes="114x114"><link href="//apple-icon-120x120.png" rel="apple-touch-icon" sizes="120x120"><link href="//apple-icon-144x144.png" rel="apple-touch-icon" sizes="144x144"><link href="//apple-icon-152x152.png" rel="apple-touch-icon" sizes="152x152"><link href="//apple-icon-180x180.png" rel="apple-touch-icon" sizes="180x180"><link href="//android-icon-192x192.png" rel="icon" sizes="192x192" type="image/png"><link href="//favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"><link href="//favicon-96x96.png" rel="icon" sizes="96x96" type="image/png"><link href="//favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"><link href="//manifest.json" rel="manifest"><meta content="#ffffff" name="msapplication-TileColor"><meta content="/ms-icon-144x144.png" name="msapplication-TileImage"><link crossorigin href="/site.webmanifest" rel="manifest"><body class="docs single"><header class="navbar fixed-top navbar-expand-md navbar-light"><div class="container"><input class="menu-btn order-0" id="menu-btn" type="checkbox"><label class="menu-icon d-md-none" for="menu-btn"><span class="navicon"></span></label><a class="navbar-brand order-1 order-md-0 me-auto" href="/">ZFS Handbook</a><button aria-label="Toggle mode" class="btn btn-link order-2 order-md-4" id="mode" type="button"><span class="toggle-dark"><svg class="feather feather-moon" viewbox="0 0 24 24" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span> <span class="toggle-light"><svg class="feather feather-sun" viewbox="0 0 24 24" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="5"></circle><line x1="12" x2="12" y1="1" y2="3"></line><line x1="12" x2="12" y1="21" y2="23"></line><line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line><line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line><line x1="1" x2="3" y1="12" y2="12"></line><line x1="21" x2="23" y1="12" y2="12"></line><line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line><line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line></svg></span></button><ul class="navbar-nav fork-me order-3 order-md-5"></ul><div class="collapse navbar-collapse order-4 order-md-1"><ul class="navbar-nav main-nav me-auto order-5 order-md-2"><li class="nav-item docs active"><a class="nav-link" href="/docs/getting-started/introduction/">Handbook</a></ul><div class="break order-6 d-md-none"></div><form class="navbar-form flex-grow-1 order-7 order-md-3"><input aria-label="Search docs..." class="form-control is-search" placeholder="Search docs..." autocomplete="off" id="userinput" type="search"><div class="shadow bg-white rounded" id="suggestions"></div></form></div></div></header><div class="wrap container" role="document"><div class="content"><div class="row flex-xl-nowrap"><div class="col-lg-5 col-xl-4 docs-sidebar"><nav aria-label="Main navigation" class="docs-links"><h3>Getting Started</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/getting-started/introduction/">Introduction</a><li><a class="docs-link" href="/docs/getting-started/freebsd-install/">Installing ZFS (FreeBSD)</a><li><a class="docs-link" href="/docs/getting-started/linux-install/">Installing ZFS (Linux)</a></ul><h3>ZFS Architecture</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/zfs-architecture/basic-components/">Basic Components</a><li><a class="docs-link" href="/docs/zfs-architecture/zfs-architecture/">ZFS Architecture</a></ul><h3>ZFS Administration</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/zfs-administration/zpool-administration/">ZPOOL Administration</a><li><a class="docs-link" href="/docs/zfs-administration/zfs-administration/">ZFS Administration</a></ul><h3>Advanced ZFS</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/advanced-zfs/data-integrity-and-self-healing/">Data Integrity and Self-Healing</a><li><a class="docs-link" href="/docs/advanced-zfs/performance-tuning/">Performance Tuning</a><li><a class="docs-link" href="/docs/advanced-zfs/compression/">Compression</a><li><a class="docs-link" href="/docs/advanced-zfs/deduplication/">Deduplication</a></ul><h3>Security</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/security/encryption/">Encryption</a><li><a class="docs-link" href="/docs/security/access-control/">Access Control</a></ul><h3>Backup and Recovery</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/backup-and-recovery/disaster-recovery/">Disaster Recovery</a><li><a class="docs-link" href="/docs/backup-and-recovery/replication/">Replication</a><li><a class="docs-link" href="/docs/backup-and-recovery/strategies/">Backup Strategies</a></ul><h3>ZFS in Production</h3><ul class="list-unstyled"><li><a class="docs-link active" href="/docs/production/enterprise/">Enterprise Deployment</a><li><a class="docs-link" href="/docs/production/large-scale/">Large Scale Deployments</a></ul><h3>Troubleshooting and Maintenance</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/troubleshooting/common-issues/">Common Issues and Solutions</a><li><a class="docs-link" href="/docs/troubleshooting/debugging/">Debugging ZFS</a></ul><h3>Migration Guides</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/migrating/btrfs/">BTRFS</a><li><a class="docs-link" href="/docs/migrating/ext4/">EXT4</a><li><a class="docs-link" href="/docs/migrating/lvm/">LVM</a><li><a class="docs-link" href="/docs/migrating/vxvm/">VxVM</a><li><a class="docs-link" href="/docs/migrating/xfs/">XFS</a></ul><h3>References</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/references/glossary/">Glossary</a><li><a class="docs-link" href="/docs/references/cheatsheet/">ZFS Cheat Sheet</a><li><a class="docs-link" href="/docs/references/command-reference/">ZFS Command Reference</a></ul><h3>Misceleaneous</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/misceleaneous/comparison/">FS &amp; LVM Comparison</a><li><a class="docs-link" href="/docs/misceleaneous/legal/">ZFS License and Legal Considerations</a></ul></nav></div><nav aria-label="Secondary navigation" class="docs-toc d-none d-xl-block col-xl-3"><div class="page-links"><h3>On this page</h3><nav id="TableOfContents"><ul><li><a href="/docs/production/enterprise/#high-availability-configurations">High Availability Configurations</a></li><ul><li><a href="/docs/production/enterprise/#clustered-zfs-storage-with-failover">Clustered ZFS Storage with Failover</a><li><a href="/docs/production/enterprise/#mirroring-and-raid-z-for-redundancy">Mirroring and RAID-Z for Redundancy</a></ul><li><a href="/docs/production/enterprise/#zfs-in-virtualized-environments">ZFS in Virtualized Environments</a></li><ul><li><a href="/docs/production/enterprise/#zfs-with-vmware">ZFS with VMware</a><li><a href="/docs/production/enterprise/#zfs-with-kvm-kernel-based-virtual-machine">ZFS with KVM (Kernel-based Virtual Machine)</a></ul></ul></nav></div></nav><main class="docs-content col-lg-11 col-xl-9"><h1>Enterprise Deployment</h1><p>ZFS is commonly deployed in enterprise environments due to its scalability and advanced features for managing data. When deploying ZFS in production, particularly in enterprise contexts, two important considerations are high availability (HA) configurations and the use of ZFS in virtualized environments like VMware and KVM.<h2 id="high-availability-configurations">High Availability Configurations</h2><p>High availability (HA) ensures that services remain operational during hardware or software failures, minimizing downtime. In ZFS, high availability is achieved through clustering, redundancy, and automatic failover setups.<h3 id="clustered-zfs-storage-with-failover">Clustered ZFS Storage with Failover</h3><p>A common approach to achieving HA with ZFS is through a cluster setup. Multiple nodes are connected to shared storage, and one node is active at a time. In case of a failure, another node can take over the storage pool and continue serving data.<p>ZFS pools are placed on shared storage accessible by multiple nodes, often using iSCSI, Fibre Channel, or a NAS over NFS. The nodes access the same storage, but only one node actively mounts and serves the pool at a time.<p>Cluster management tools such as <strong>Pacemaker</strong> and <strong>Corosync</strong> detect node failures and automatically switch the pool and services (such as NFS or SMB) to the backup node. Pacemaker triggers failover when the active node becomes unavailable, allowing the backup node to take over with minimal downtime. Nodes communicate via Corosync to detect failures.<p>Here’s a basic example of configuring ZFS clustering with Pacemaker:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#65737e"># Configure ZFS resource for Pacemaker
+</span><span style="color:#bf616a">$</span><span> sudo pcs resource create zfspool ocf:heartbeat:ZFS pool=myzpool
+</span><span style="color:#bf616a">$</span><span> sudo pcs resource group add zfs_group zfspool
+</span></code></pre><p>For remote failover, ZFS replication keeps the backup node in sync with the active node. Periodic replication can be set up using <code>zfs send</code> and <code>zfs receive</code>:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#65737e"># Incremental replication
+</span><span style="color:#bf616a">$</span><span> sudo zfs send</span><span style="color:#bf616a"> -i</span><span> mypool@prevsnap mypool@currsnap | </span><span style="color:#bf616a">ssh</span><span> backup_node sudo zfs receive remotepool
+</span></code></pre><p>Here’s an ASCII diagram illustrating a simple two-node HA cluster:<pre style="background:#2b303b;color:#c0c5ce"><code><span>+---------------+         +---------------+
+</span><span>|     Node 1    |         |     Node 2    |
+</span><span>|  Active ZFS   |         |  Standby ZFS  |
+</span><span>+---------------+         +---------------+
+</span><span>      |                          |
+</span><span>      |  Pacemaker + Corosync    |
+</span><span>      +--------------------------+
+</span><span>           | Shared Storage |
+</span><span>           +----------------+
+</span><span>                [myzpool]
+</span></code></pre><h3 id="mirroring-and-raid-z-for-redundancy">Mirroring and RAID-Z for Redundancy</h3><p>For smaller deployments that do not use clustered setups, ZFS’s built-in redundancy features provide high availability through mirroring or <strong>RAID-Z</strong> configurations.<p>In a mirrored configuration, data is written to multiple disks simultaneously. If one disk fails, the system continues to operate using the remaining disk(s). The mirrored pool can be created with the following command:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#65737e"># Create a mirrored pool
+</span><span style="color:#bf616a">$</span><span> sudo zpool create mypool mirror /dev/sda /dev/sdb
+</span></code></pre><p>RAID-Z1, RAID-Z2, and RAID-Z3 configurations provide redundancy by distributing parity across disks. For example, RAID-Z2 allows two disks to fail without data loss:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#65737e"># Create a RAID-Z2 pool
+</span><span style="color:#bf616a">$</span><span> sudo zpool create mypool raidz2 /dev/sda /dev/sdb /dev/sdc /dev/sdd /dev/sde
+</span></code></pre><p>After a disk failure, ZFS starts <strong>resilvering</strong>, which rebuilds data on the replacement disk. The resilvering progress can be monitored using the <code>zpool status</code> command:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#65737e"># Check resilvering progress
+</span><span style="color:#bf616a">$</span><span> sudo zpool status
+</span></code></pre><p>Regular scrubbing ensures data integrity by checking for errors and correcting them using redundant data. Scrubs can be scheduled with cron:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#65737e"># Schedule a scrub every Sunday at 2 AM
+</span><span style="color:#bf616a">0</span><span> 2 * * 7 sudo zpool scrub mypool
+</span></code></pre><h2 id="zfs-in-virtualized-environments">ZFS in Virtualized Environments</h2><p>ZFS is often used as the underlying storage for virtual machines in environments like VMware and KVM. Its features, such as snapshots, cloning, and compression, help manage virtual machine data effectively.<h3 id="zfs-with-vmware">ZFS with VMware</h3><p>VMware typically uses <strong>NFS</strong> as a shared storage protocol. ZFS can act as the backend storage for NFS datastores. To configure ZFS as NFS storage for VMware, export the ZFS dataset over NFS:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#65737e"># Share a ZFS dataset over NFS for VMware
+</span><span style="color:#bf616a">$</span><span> sudo zfs set sharenfs=on mypool/vmstorage
+</span></code></pre><p>VMware hosts can mount the ZFS NFS share as a datastore. ZFS snapshots provide point-in-time copies of VM data, allowing quick backups and restores. To take a snapshot of a VM storage dataset:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#65737e"># Take a snapshot of a VM storage dataset
+</span><span style="color:#bf616a">$</span><span> sudo zfs snapshot mypool/vmstorage@vmbackup
+</span></code></pre><p>ZFS cloning allows multiple VMs to be created from a single base image. This reduces storage overhead and improves efficiency:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#65737e"># Create a clone of a VM base image
+</span><span style="color:#bf616a">$</span><span> sudo zfs clone mypool/vmstorage@vmbackup mypool/vmclone
+</span></code></pre><h3 id="zfs-with-kvm-kernel-based-virtual-machine">ZFS with KVM (Kernel-based Virtual Machine)</h3><p>ZFS integrates well with <strong>KVM</strong> as the storage backend for virtual machines using ZVOLs, which are block storage devices that support ZFS features such as compression and snapshots. A ZVOL can be created and presented to KVM as a virtual block device:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#65737e"># Create a 50GB ZVOL for KVM VM
+</span><span style="color:#bf616a">$</span><span> sudo zfs create</span><span style="color:#bf616a"> -V</span><span> 50G mypool/kvmvol
+</span></code></pre><p>ZFS’s thin provisioning allocates space only as data is written, optimizing storage usage. Snapshots of ZVOLs can be taken before major changes to KVM virtual machines. To take a snapshot of a ZVOL:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#65737e"># Take a snapshot of a ZVOL
+</span><span style="color:#bf616a">$</span><span> sudo zfs snapshot mypool/kvmvol@preupdate
+</span></code></pre><p>If needed, the ZVOL can be rolled back to this snapshot:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#65737e"># Rollback to the snapshot
+</span><span style="color:#bf616a">$</span><span> sudo zfs rollback mypool/kvmvol@preupdate
+</span></code></pre><div class="docs-navigation d-flex justify-content-between"><a href="/docs/backup-and-recovery/strategies/"> <div class="card my-1"><div class="card-body py-2">← Backup Strategies</div></div> </a><a class="ms-auto" href="/docs/troubleshooting/common-issues/"> <div class="card my-1"><div class="card-body py-2">Common Issues and Solutions →</div></div> </a></div></main></div></div></div><footer class="footer text-muted"><div class="container"><div class="row"><div class="col-lg-8 order-last order-lg-first"><ul class="list-inline"><li class="list-inline-item">Powered by <a href="https://www.makesite.sh/">makesite.sh</a>, a <a href="https://www.dutchbsd.com/">DutchBSD B.V.</a> product.</ul></div><div class="col-lg-8 order-first order-lg-last text-lg-end"><ul class="list-inline"></ul></div></div></div></footer>

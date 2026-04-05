@@ -1,0 +1,145 @@
+<!doctype html><html lang="en-US"><head>
+
+
+
+
+
+
+<!-- End Wayback Rewrite JS Include -->
+<meta charset="utf-8"><meta content="ie=edge" http-equiv="x-ua-compatible"><meta content="width=device-width,initial-scale=1,shrink-to-fit=no" name="viewport"><link as="font" crossorigin href="/fonts/vendor/jost/jost-v4-latin-regular.woff2" rel="preload" type="font/woff2"><link as="font" crossorigin href="/fonts/vendor/jost/jost-v4-latin-700.woff2" rel="preload" type="font/woff2"><link href="/main.css" rel="stylesheet"><meta content="index, follow" name="robots"><meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name="googlebot"><meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name="bingbot"><title>ZFS Architecture | ZFS Handbook</title><meta content="Detailed explanation of the ZFS architecture, focusing on how ZFS integrates file system management with volume management for improved efficiency." name="description"><link href="/docs/zfs-architecture/zfs-architecture/" rel="canonical"><script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    
+      
+      {
+        "@type": "ListItem",
+        "position":  1,
+        "name": "Home",
+        "item": "/"
+      },
+      
+        
+        
+        
+          
+          
+        
+        
+        
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Docs",
+          "item": "/docs/"
+        },
+        
+      
+        
+        
+        
+          
+          
+        
+          
+          
+        
+        
+        
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Zfs Architecture",
+          "item": "/docs/zfs-architecture/"
+        },
+        
+      
+        
+        
+        
+          
+          
+        
+          
+          
+        
+        
+        
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Zfs Architecture",
+          "item": "/docs/zfs-architecture/zfs-architecture/"
+        }
+        
+      
+    
+  ]
+}
+</script><meta content="#fff" name="theme-color"><link href="//apple-icon-57x57.png" rel="apple-touch-icon" sizes="57x57"><link href="//apple-icon-60x60.png" rel="apple-touch-icon" sizes="60x60"><link href="//apple-icon-72x72.png" rel="apple-touch-icon" sizes="72x72"><link href="//apple-icon-76x76.png" rel="apple-touch-icon" sizes="76x76"><link href="//apple-icon-114x114.png" rel="apple-touch-icon" sizes="114x114"><link href="//apple-icon-120x120.png" rel="apple-touch-icon" sizes="120x120"><link href="//apple-icon-144x144.png" rel="apple-touch-icon" sizes="144x144"><link href="//apple-icon-152x152.png" rel="apple-touch-icon" sizes="152x152"><link href="//apple-icon-180x180.png" rel="apple-touch-icon" sizes="180x180"><link href="//android-icon-192x192.png" rel="icon" sizes="192x192" type="image/png"><link href="//favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"><link href="//favicon-96x96.png" rel="icon" sizes="96x96" type="image/png"><link href="//favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"><link href="//manifest.json" rel="manifest"><meta content="#ffffff" name="msapplication-TileColor"><meta content="/ms-icon-144x144.png" name="msapplication-TileImage"><link crossorigin href="/site.webmanifest" rel="manifest"><body class="docs single"><header class="navbar fixed-top navbar-expand-md navbar-light"><div class="container"><input class="menu-btn order-0" id="menu-btn" type="checkbox"><label class="menu-icon d-md-none" for="menu-btn"><span class="navicon"></span></label><a class="navbar-brand order-1 order-md-0 me-auto" href="/">ZFS Handbook</a><button aria-label="Toggle mode" class="btn btn-link order-2 order-md-4" id="mode" type="button"><span class="toggle-dark"><svg class="feather feather-moon" viewbox="0 0 24 24" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span> <span class="toggle-light"><svg class="feather feather-sun" viewbox="0 0 24 24" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="5"></circle><line x1="12" x2="12" y1="1" y2="3"></line><line x1="12" x2="12" y1="21" y2="23"></line><line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line><line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line><line x1="1" x2="3" y1="12" y2="12"></line><line x1="21" x2="23" y1="12" y2="12"></line><line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line><line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line></svg></span></button><ul class="navbar-nav fork-me order-3 order-md-5"></ul><div class="collapse navbar-collapse order-4 order-md-1"><ul class="navbar-nav main-nav me-auto order-5 order-md-2"><li class="nav-item docs active"><a class="nav-link" href="/docs/getting-started/introduction/">Handbook</a></ul><div class="break order-6 d-md-none"></div><form class="navbar-form flex-grow-1 order-7 order-md-3"><input aria-label="Search docs..." class="form-control is-search" placeholder="Search docs..." autocomplete="off" id="userinput" type="search"><div class="shadow bg-white rounded" id="suggestions"></div></form></div></div></header><div class="wrap container" role="document"><div class="content"><div class="row flex-xl-nowrap"><div class="col-lg-5 col-xl-4 docs-sidebar"><nav aria-label="Main navigation" class="docs-links"><h3>Getting Started</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/getting-started/introduction/">Introduction</a><li><a class="docs-link" href="/docs/getting-started/freebsd-install/">Installing ZFS (FreeBSD)</a><li><a class="docs-link" href="/docs/getting-started/linux-install/">Installing ZFS (Linux)</a></ul><h3>ZFS Architecture</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/zfs-architecture/basic-components/">Basic Components</a><li><a class="docs-link active" href="/docs/zfs-architecture/zfs-architecture/">ZFS Architecture</a></ul><h3>ZFS Administration</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/zfs-administration/zpool-administration/">ZPOOL Administration</a><li><a class="docs-link" href="/docs/zfs-administration/zfs-administration/">ZFS Administration</a></ul><h3>Advanced ZFS</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/advanced-zfs/data-integrity-and-self-healing/">Data Integrity and Self-Healing</a><li><a class="docs-link" href="/docs/advanced-zfs/performance-tuning/">Performance Tuning</a><li><a class="docs-link" href="/docs/advanced-zfs/compression/">Compression</a><li><a class="docs-link" href="/docs/advanced-zfs/deduplication/">Deduplication</a></ul><h3>Security</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/security/encryption/">Encryption</a><li><a class="docs-link" href="/docs/security/access-control/">Access Control</a></ul><h3>Backup and Recovery</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/backup-and-recovery/disaster-recovery/">Disaster Recovery</a><li><a class="docs-link" href="/docs/backup-and-recovery/replication/">Replication</a><li><a class="docs-link" href="/docs/backup-and-recovery/strategies/">Backup Strategies</a></ul><h3>ZFS in Production</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/production/enterprise/">Enterprise Deployment</a><li><a class="docs-link" href="/docs/production/large-scale/">Large Scale Deployments</a></ul><h3>Troubleshooting and Maintenance</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/troubleshooting/common-issues/">Common Issues and Solutions</a><li><a class="docs-link" href="/docs/troubleshooting/debugging/">Debugging ZFS</a></ul><h3>Migration Guides</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/migrating/btrfs/">BTRFS</a><li><a class="docs-link" href="/docs/migrating/ext4/">EXT4</a><li><a class="docs-link" href="/docs/migrating/lvm/">LVM</a><li><a class="docs-link" href="/docs/migrating/vxvm/">VxVM</a><li><a class="docs-link" href="/docs/migrating/xfs/">XFS</a></ul><h3>References</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/references/glossary/">Glossary</a><li><a class="docs-link" href="/docs/references/cheatsheet/">ZFS Cheat Sheet</a><li><a class="docs-link" href="/docs/references/command-reference/">ZFS Command Reference</a></ul><h3>Misceleaneous</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/misceleaneous/comparison/">FS &amp; LVM Comparison</a><li><a class="docs-link" href="/docs/misceleaneous/legal/">ZFS License and Legal Considerations</a></ul></nav></div><nav aria-label="Secondary navigation" class="docs-toc d-none d-xl-block col-xl-3"><div class="page-links"><h3>On this page</h3><nav id="TableOfContents"><ul><li><a href="/docs/zfs-architecture/zfs-architecture/#introduction-to-zfs-architecture">Introduction to ZFS Architecture</a><li><a href="/docs/zfs-architecture/zfs-architecture/#layered-structure-of-zfs">Layered Structure of ZFS</a><li><a href="/docs/zfs-architecture/zfs-architecture/#how-vdevs-zpools-and-datasets-work-together">How VDEVs, ZPOOLS, and Datasets Work Together</a></li><ul><li><a href="/docs/zfs-architecture/zfs-architecture/#advanced-features-and-their-architectural-implications">Advanced Features and Their Architectural Implications</a></ul><li><a href="/docs/zfs-architecture/zfs-architecture/#zfs-in-real-world-applications">ZFS in Real-World Applications</a><li><a href="/docs/zfs-architecture/zfs-architecture/#key-innovations-and-their-impact-on-data-management">Key Innovations and Their Impact on Data Management</a></ul></nav></div></nav><main class="docs-content col-lg-11 col-xl-9"><h1>ZFS Architecture</h1><h2 id="introduction-to-zfs-architecture">Introduction to ZFS Architecture</h2><p>ZFS (Zettabyte File System) is a file system and volume manager that integrates features traditionally provided by separate software layers. This integration allows ZFS to manage data with a focus on integrity, scalability, and ease of use. ZFS's architecture is designed to support large-scale data storage and management, making it suitable for a wide range of environments, from personal storage systems to enterprise data centers.<pre style="background:#2b303b;color:#c0c5ce"><code><span>  --------    --------    --------    --------    --------    --------
+</span><span> |  Disk  |  |  Disk  |  |  Disk  |  |  Disk  |  |  Disk  |  |  Disk  |
+</span><span>  --------    --------    --------    --------    --------    --------
+</span><span>      |           |           |           |           |           |
+</span><span>      +-----------+-----------+           +-----------+-----------+
+</span><span>                  |                               |
+</span><span>               VDEV 1                          VDEV 2
+</span><span>                  |                               |
+</span><span>                  +-----------------+-------------+
+</span><span>                                    |
+</span><span>                                  ZPOOL
+</span><span>                                    |
+</span><span>                  +--------+--------+--------+--------+
+</span><span>                  |        |        |        |        |
+</span><span>                 ZVOL   dataset  dataset  dataset  dataset
+</span></code></pre><pre style="background:#2b303b;color:#c0c5ce"><code><span>   Single             Mirror                      RAIDZ-1
+</span><span>  --------      --------  --------     --------  --------  --------
+</span><span> |  Disk  |    |  Disk  ||  Disk  |   |  Disk  ||  Disk  ||  Disk  |
+</span><span>  --------      --------  --------     --------  --------  --------
+</span><span>      |              \      /               |        |        |
+</span><span>      v               \    /                v        v        v
+</span><span>  +--------+        +--------+            +---------------------+
+</span><span>  |  VDEV  |        |  VDEV  |            |        VDEV         |
+</span><span>  +--------+        +--------+            +---------------------+
+</span></code></pre><pre style="background:#2b303b;color:#c0c5ce"><code><span>                           RAID-10 (1+0)
+</span><span>                         Stripe of mirrors
+</span><span>
+</span><span>   ------    ------      ------    ------      ------    ------
+</span><span>  | Disk |  | Disk |    | Disk |  | Disk |    | Disk |  | Disk |
+</span><span>   ------    ------      ------    ------      ------    ------
+</span><span>      |         |           |         |           |         |
+</span><span>      +---------+           +---------+           +---------+
+</span><span>           |                     |                     |
+</span><span>   +---------------+    +---------------+    +---------------+
+</span><span>   | VDEV-Mirror-0 |    | VDEV-Mirror-1 |    | VDEV-Mirror-2 |
+</span><span>   +---------------+    +---------------+    +---------------+
+</span><span>            |                   |                     |
+</span><span>            +-------------------+---------------------+
+</span><span>                                |
+</span><span>                           +----------+
+</span><span>                           |  ZPOOL   |
+</span><span>                           +----------+
+</span><span>
+</span></code></pre><h2 id="layered-structure-of-zfs">Layered Structure of ZFS</h2><p>ZFS is organized into a layered structure that begins with physical disks at the lowest level. These disks are grouped into Virtual Devices (VDEVs), which are then combined to form ZFS Storage Pools (ZPOOLS). The datasets within these pools represent the logical storage spaces available to users. This structure allows ZFS to manage physical storage resources efficiently while providing a flexible and scalable way to organize and access data.<h2 id="how-vdevs-zpools-and-datasets-work-together">How VDEVs, ZPOOLS, and Datasets Work Together</h2><p>In ZFS, the interaction between VDEVs, ZPOOLS, and datasets is fundamental to how data is stored and managed. VDEVs abstract the physical disks, providing redundancy and performance configurations. ZPOOLS aggregate these VDEVs, pooling their combined storage capacity. Within these pools, datasets (file systems or ZVOLs) are created, offering logical spaces for data storage that inherit the underlying pool's characteristics. This architecture ensures that data is efficiently organized, protected against hardware failures, and accessible as needed.<pre style="background:#2b303b;color:#c0c5ce"><code><span>                         +----------------+
+</span><span>                         |  ZFS Dataset 1 |
+</span><span>                         +----------------+
+</span><span>                                |
+</span><span>                         +----------------+
+</span><span>                         |  ZFS Dataset 2 |
+</span><span>                         +----------------+
+</span><span>                                |
+</span><span>                                v
+</span><span>                       +-----------------+
+</span><span>                       |     ZPOOL       |
+</span><span>                       +-----------------+
+</span><span>                         /         |     \
+</span><span>                        /          |      \
+</span><span>                       /           |       \
+</span><span>                      /            |        \
+</span><span>            +---------+     +------+-------+    +---------+
+</span><span>            |  VDEV 1 |     |    VDEV 2    |    |  VDEV 3 |
+</span><span>            +---------+     +--------------+    +---------+
+</span><span>             /   |   \           /  |   \          /    \
+</span><span>          Disk1 Disk2 Disk3    Disk4 Disk5 Disk6  Disk7 Disk8
+</span><span>
+</span></code></pre><h3 id="advanced-features-and-their-architectural-implications">Advanced Features and Their Architectural Implications</h3><p>ZFS includes several advanced features that are deeply integrated into its architecture. One such feature is transactional operations, which ensure that every write operation is atomic, consistent, isolated, and durable (ACID). The Copy-on-Write (CoW) mechanism further enhances data integrity by writing new data to a different location before updating metadata, thereby preventing corruption.<p>ZFS also includes a self-healing capability that automatically detects and corrects silent data corruption using redundant data stored in the system. The Adaptive Replacement Cache (ARC) is another critical component, dynamically managing memory to cache frequently accessed data, thereby improving read performance.<p>These advanced features make ZFS not only reliable but also capable of handling large-scale and complex data management tasks efficiently.<h2 id="zfs-in-real-world-applications">ZFS in Real-World Applications</h2><p>ZFS is commonly used in environments where data integrity, scalability, and performance are critical. For example, in virtualized environments, ZFS is often used to manage storage for virtual machines through ZVOLs, which provide block-level storage. The ability to take snapshots without affecting performance is particularly valuable for managing backups and testing environments.<p>In enterprise data centers, ZFS's scalability allows it to manage petabytes of data across thousands of disks, with features like RAID-Z protecting against disk failures. The flexibility of ZFS also makes it suitable for diverse workloads, from databases to file servers.<p>By understanding how ZFS architecture supports these real-world applications, users can better implement and optimize ZFS in their environments.<h2 id="key-innovations-and-their-impact-on-data-management">Key Innovations and Their Impact on Data Management</h2><p>ZFS introduces several key innovations that have significantly impacted data management. The RAID-Z implementation addresses the traditional RAID write-hole problem by ensuring data consistency during power failures or crashes. This is achieved by calculating parity data dynamically, which is then distributed across multiple disks.<p>Another critical innovation is the Copy-on-Write model, which allows ZFS to create snapshots and clones with minimal overhead. This feature is particularly useful in environments where frequent backups or testing environments are needed.<p>ZFS's self-healing capability ensures data integrity by automatically repairing corrupted data blocks using checksums and redundant data. These innovations have made ZFS a robust choice for environments where data reliability and integrity are paramount.<div class="docs-navigation d-flex justify-content-between"><a href="/docs/getting-started/linux-install/"> <div class="card my-1"><div class="card-body py-2">← Installing ZFS (Linux)</div></div> </a><a class="ms-auto" href="/docs/zfs-administration/zpool-administration/"> <div class="card my-1"><div class="card-body py-2">ZPOOL Administration →</div></div> </a></div></main></div></div></div><footer class="footer text-muted"><div class="container"><div class="row"><div class="col-lg-8 order-last order-lg-first"><ul class="list-inline"><li class="list-inline-item">Powered by <a href="https://www.makesite.sh/">makesite.sh</a>, a <a href="https://www.dutchbsd.com/">DutchBSD B.V.</a> product.</ul></div><div class="col-lg-8 order-first order-lg-last text-lg-end"><ul class="list-inline"></ul></div></div></div></footer>

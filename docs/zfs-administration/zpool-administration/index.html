@@ -1,0 +1,322 @@
+<!doctype html><html lang="en-US"><head>
+
+
+
+
+
+
+<!-- End Wayback Rewrite JS Include -->
+<meta charset="utf-8"><meta content="ie=edge" http-equiv="x-ua-compatible"><meta content="width=device-width,initial-scale=1,shrink-to-fit=no" name="viewport"><link as="font" crossorigin href="/fonts/vendor/jost/jost-v4-latin-regular.woff2" rel="preload" type="font/woff2"><link as="font" crossorigin href="/fonts/vendor/jost/jost-v4-latin-700.woff2" rel="preload" type="font/woff2"><link href="/main.css" rel="stylesheet"><meta content="index, follow" name="robots"><meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name="googlebot"><meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name="bingbot"><title>ZPOOL Administration | ZFS Handbook</title><meta content="A guide to ZPOOL administration, covering commands for creating, managing, and maintaining ZFS pools." name="description"><link href="/docs/zfs-administration/zpool-administration/" rel="canonical"><script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    
+      
+      {
+        "@type": "ListItem",
+        "position":  1,
+        "name": "Home",
+        "item": "/"
+      },
+      
+        
+        
+        
+          
+          
+        
+        
+        
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Docs",
+          "item": "/docs/"
+        },
+        
+      
+        
+        
+        
+          
+          
+        
+          
+          
+        
+        
+        
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Zfs Administration",
+          "item": "/docs/zfs-administration/"
+        },
+        
+      
+        
+        
+        
+          
+          
+        
+          
+          
+        
+        
+        
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Zpool Administration",
+          "item": "/docs/zfs-administration/zpool-administration/"
+        }
+        
+      
+    
+  ]
+}
+</script><meta content="#fff" name="theme-color"><link href="//apple-icon-57x57.png" rel="apple-touch-icon" sizes="57x57"><link href="//apple-icon-60x60.png" rel="apple-touch-icon" sizes="60x60"><link href="//apple-icon-72x72.png" rel="apple-touch-icon" sizes="72x72"><link href="//apple-icon-76x76.png" rel="apple-touch-icon" sizes="76x76"><link href="//apple-icon-114x114.png" rel="apple-touch-icon" sizes="114x114"><link href="//apple-icon-120x120.png" rel="apple-touch-icon" sizes="120x120"><link href="//apple-icon-144x144.png" rel="apple-touch-icon" sizes="144x144"><link href="//apple-icon-152x152.png" rel="apple-touch-icon" sizes="152x152"><link href="//apple-icon-180x180.png" rel="apple-touch-icon" sizes="180x180"><link href="//android-icon-192x192.png" rel="icon" sizes="192x192" type="image/png"><link href="//favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"><link href="//favicon-96x96.png" rel="icon" sizes="96x96" type="image/png"><link href="//favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"><link href="//manifest.json" rel="manifest"><meta content="#ffffff" name="msapplication-TileColor"><meta content="/ms-icon-144x144.png" name="msapplication-TileImage"><link crossorigin href="/site.webmanifest" rel="manifest"><body class="docs single"><header class="navbar fixed-top navbar-expand-md navbar-light"><div class="container"><input class="menu-btn order-0" id="menu-btn" type="checkbox"><label class="menu-icon d-md-none" for="menu-btn"><span class="navicon"></span></label><a class="navbar-brand order-1 order-md-0 me-auto" href="/">ZFS Handbook</a><button aria-label="Toggle mode" class="btn btn-link order-2 order-md-4" id="mode" type="button"><span class="toggle-dark"><svg class="feather feather-moon" viewbox="0 0 24 24" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span> <span class="toggle-light"><svg class="feather feather-sun" viewbox="0 0 24 24" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="5"></circle><line x1="12" x2="12" y1="1" y2="3"></line><line x1="12" x2="12" y1="21" y2="23"></line><line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line><line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line><line x1="1" x2="3" y1="12" y2="12"></line><line x1="21" x2="23" y1="12" y2="12"></line><line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line><line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line></svg></span></button><ul class="navbar-nav fork-me order-3 order-md-5"></ul><div class="collapse navbar-collapse order-4 order-md-1"><ul class="navbar-nav main-nav me-auto order-5 order-md-2"><li class="nav-item docs active"><a class="nav-link" href="/docs/getting-started/introduction/">Handbook</a></ul><div class="break order-6 d-md-none"></div><form class="navbar-form flex-grow-1 order-7 order-md-3"><input aria-label="Search docs..." class="form-control is-search" placeholder="Search docs..." autocomplete="off" id="userinput" type="search"><div class="shadow bg-white rounded" id="suggestions"></div></form></div></div></header><div class="wrap container" role="document"><div class="content"><div class="row flex-xl-nowrap"><div class="col-lg-5 col-xl-4 docs-sidebar"><nav aria-label="Main navigation" class="docs-links"><h3>Getting Started</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/getting-started/introduction/">Introduction</a><li><a class="docs-link" href="/docs/getting-started/freebsd-install/">Installing ZFS (FreeBSD)</a><li><a class="docs-link" href="/docs/getting-started/linux-install/">Installing ZFS (Linux)</a></ul><h3>ZFS Architecture</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/zfs-architecture/basic-components/">Basic Components</a><li><a class="docs-link" href="/docs/zfs-architecture/zfs-architecture/">ZFS Architecture</a></ul><h3>ZFS Administration</h3><ul class="list-unstyled"><li><a class="docs-link active" href="/docs/zfs-administration/zpool-administration/">ZPOOL Administration</a><li><a class="docs-link" href="/docs/zfs-administration/zfs-administration/">ZFS Administration</a></ul><h3>Advanced ZFS</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/advanced-zfs/data-integrity-and-self-healing/">Data Integrity and Self-Healing</a><li><a class="docs-link" href="/docs/advanced-zfs/performance-tuning/">Performance Tuning</a><li><a class="docs-link" href="/docs/advanced-zfs/compression/">Compression</a><li><a class="docs-link" href="/docs/advanced-zfs/deduplication/">Deduplication</a></ul><h3>Security</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/security/encryption/">Encryption</a><li><a class="docs-link" href="/docs/security/access-control/">Access Control</a></ul><h3>Backup and Recovery</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/backup-and-recovery/disaster-recovery/">Disaster Recovery</a><li><a class="docs-link" href="/docs/backup-and-recovery/replication/">Replication</a><li><a class="docs-link" href="/docs/backup-and-recovery/strategies/">Backup Strategies</a></ul><h3>ZFS in Production</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/production/enterprise/">Enterprise Deployment</a><li><a class="docs-link" href="/docs/production/large-scale/">Large Scale Deployments</a></ul><h3>Troubleshooting and Maintenance</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/troubleshooting/common-issues/">Common Issues and Solutions</a><li><a class="docs-link" href="/docs/troubleshooting/debugging/">Debugging ZFS</a></ul><h3>Migration Guides</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/migrating/btrfs/">BTRFS</a><li><a class="docs-link" href="/docs/migrating/ext4/">EXT4</a><li><a class="docs-link" href="/docs/migrating/lvm/">LVM</a><li><a class="docs-link" href="/docs/migrating/vxvm/">VxVM</a><li><a class="docs-link" href="/docs/migrating/xfs/">XFS</a></ul><h3>References</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/references/glossary/">Glossary</a><li><a class="docs-link" href="/docs/references/cheatsheet/">ZFS Cheat Sheet</a><li><a class="docs-link" href="/docs/references/command-reference/">ZFS Command Reference</a></ul><h3>Misceleaneous</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/misceleaneous/comparison/">FS &amp; LVM Comparison</a><li><a class="docs-link" href="/docs/misceleaneous/legal/">ZFS License and Legal Considerations</a></ul></nav></div><nav aria-label="Secondary navigation" class="docs-toc d-none d-xl-block col-xl-3"><div class="page-links"><h3>On this page</h3><nav id="TableOfContents"><ul><li><a href="/docs/zfs-administration/zpool-administration/#managing-storage-pools">Managing Storage Pools</a></li><ul><li><a href="/docs/zfs-administration/zpool-administration/#creating-and-destroying-zpools">Creating and Destroying zpools</a><li><a href="/docs/zfs-administration/zpool-administration/#adding-and-removing-devices">Adding and Removing Devices</a><li><a href="/docs/zfs-administration/zpool-administration/#expanding-and-resizing-pools">Expanding and Resizing Pools</a><li><a href="/docs/zfs-administration/zpool-administration/#monitoring-pool-health">Monitoring Pool Health</a></ul><li><a href="/docs/zfs-administration/zpool-administration/#dealing-with-a-failed-device-in-zfs">Dealing with a Failed Device in ZFS</a></li><ul><li><a href="/docs/zfs-administration/zpool-administration/#identifying-a-failed-device">Identifying a Failed Device</a><li><a href="/docs/zfs-administration/zpool-administration/#replacing-the-failed-device">Replacing the Failed Device</a><li><a href="/docs/zfs-administration/zpool-administration/#dealing-with-non-redundant-pools">Dealing with Non-Redundant Pools</a><li><a href="/docs/zfs-administration/zpool-administration/#clearing-errors-after-a-transient-failure">Clearing Errors After a Transient Failure</a><li><a href="/docs/zfs-administration/zpool-administration/#importing-and-exporting-pools">Importing and Exporting Pools</a><li><a href="/docs/zfs-administration/zpool-administration/#example-workflow-moving-a-pool-between-systems">Example Workflow: Moving a Pool Between Systems</a></ul><li><a href="/docs/zfs-administration/zpool-administration/#using-zpool-history-to-track-pool-operations">Using zpool history to Track Pool Operations</a></li><ul><li><a href="/docs/zfs-administration/zpool-administration/#viewing-the-history-of-a-zfs-pool">Viewing the History of a ZFS Pool</a><li><a href="/docs/zfs-administration/zpool-administration/#viewing-all-pool-histories">Viewing All Pool Histories</a><li><a href="/docs/zfs-administration/zpool-administration/#including-internal-zfs-events">Including Internal ZFS Events</a><li><a href="/docs/zfs-administration/zpool-administration/#filtering-the-history">Filtering the History</a><li><a href="/docs/zfs-administration/zpool-administration/#use-cases-for-zpool-history">Use Cases for zpool history</a></ul></ul></nav></div></nav><main class="docs-content col-lg-11 col-xl-9"><h1>ZPOOL Administration</h1><h2 id="managing-storage-pools">Managing Storage Pools</h2><p>In ZFS, storage pools, or zpools, are the fundamental units of storage management. A zpool aggregates the capacity of physical devices into a single, logical storage space. All data, including datasets, snapshots, and volumes, is stored within zpools. The management of these storage pools is essential for ensuring that ZFS operates efficiently and reliably. The following sections describe how to create and destroy zpools, manage devices within a pool, and monitor the health of a zpool.<h3 id="creating-and-destroying-zpools">Creating and Destroying zpools</h3><h4 id="creating-a-zfs-storage-pool">Creating a ZFS Storage Pool</h4><p>To create a zpool, use the <code>zpool create</code> command. The syntax for creating a pool requires specifying a pool name and the devices that will be part of the pool. Below are several examples demonstrating different configurations.<h5 id="example-1-creating-a-single-mirror-pool">Example 1: Creating a Single Mirror Pool</h5><pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zpool create mypool mirror /dev/ada1 /dev/ada2
+</span><span style="color:#bf616a">$</span><span> sudo zpool status
+</span><span>  </span><span style="color:#bf616a">pool:</span><span> mypool
+</span><span> </span><span style="color:#bf616a">state:</span><span> ONLINE
+</span><span>  </span><span style="color:#bf616a">scan:</span><span> none requested
+</span><span style="color:#bf616a">config:
+</span><span>
+</span><span>        </span><span style="color:#bf616a">NAME</span><span>        STATE     READ WRITE CKSUM
+</span><span>        </span><span style="color:#bf616a">mypool</span><span>      ONLINE       0     0     0
+</span><span>          </span><span style="color:#bf616a">mirror-0</span><span>  ONLINE       0     0     0
+</span><span>            </span><span style="color:#bf616a">ada1</span><span>    ONLINE       0     0     0
+</span><span>            </span><span style="color:#bf616a">ada2</span><span>    ONLINE       0     0     0
+</span><span>
+</span><span style="color:#bf616a">errors:</span><span> No known data errors
+</span></code></pre><p>This command creates a zpool named <code>mypool</code> using the devices <code>/dev/ada1</code> and <code>/dev/ada2</code> in a mirrored configuration, providing redundancy by storing identical data across both devices.<h5 id="example-2-creating-a-pool-with-two-mirrors">Example 2: Creating a Pool with Two Mirrors</h5><pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zpool create mypool mirror /dev/ada1 /dev/ada2 mirror /dev/ada3 /dev/ada4
+</span><span style="color:#bf616a">$</span><span> sudo zpool status
+</span><span>  </span><span style="color:#bf616a">pool:</span><span> mypool
+</span><span> </span><span style="color:#bf616a">state:</span><span> ONLINE
+</span><span>  </span><span style="color:#bf616a">scan:</span><span> none requested
+</span><span style="color:#bf616a">config:
+</span><span>
+</span><span>        </span><span style="color:#bf616a">NAME</span><span>        STATE     READ WRITE CKSUM
+</span><span>        </span><span style="color:#bf616a">mypool</span><span>      ONLINE       0     0     0
+</span><span>          </span><span style="color:#bf616a">mirror-0</span><span>  ONLINE       0     0     0
+</span><span>            </span><span style="color:#bf616a">ada1</span><span>    ONLINE       0     0     0
+</span><span>            </span><span style="color:#bf616a">ada2</span><span>    ONLINE       0     0     0
+</span><span>          </span><span style="color:#bf616a">mirror-1</span><span>  ONLINE       0     0     0
+</span><span>            </span><span style="color:#bf616a">ada3</span><span>    ONLINE       0     0     0
+</span><span>            </span><span style="color:#bf616a">ada4</span><span>    ONLINE       0     0     0
+</span><span>
+</span><span style="color:#bf616a">errors:</span><span> No known data errors
+</span></code></pre><p>This creates a zpool named <code>mypool</code> consisting of two mirrored pairs. The first mirror is made of <code>/dev/ada1</code> and <code>/dev/ada2</code>, while the second mirror uses <code>/dev/ada3</code> and <code>/dev/ada4</code>. Data is mirrored across both pairs of devices, providing redundancy.<h5 id="example-3-creating-a-raid-z1-pool">Example 3: Creating a RAID-Z1 Pool</h5><pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zpool create myraidzpool raidz1 /dev/ada1 /dev/ada2 /dev/ada3 /dev/ada4
+</span><span style="color:#bf616a">$</span><span> sudo zpool status
+</span><span>  </span><span style="color:#bf616a">pool:</span><span> myraidzpool
+</span><span> </span><span style="color:#bf616a">state:</span><span> ONLINE
+</span><span>  </span><span style="color:#bf616a">scan:</span><span> none requested
+</span><span style="color:#bf616a">config:
+</span><span>
+</span><span>        </span><span style="color:#bf616a">NAME</span><span>        STATE     READ WRITE CKSUM
+</span><span>        </span><span style="color:#bf616a">myraidzpool</span><span> ONLINE       0     0     0
+</span><span>          </span><span style="color:#bf616a">raidz1-0</span><span>  ONLINE       0     0     0
+</span><span>            </span><span style="color:#bf616a">ada1</span><span>    ONLINE       0     0     0
+</span><span>            </span><span style="color:#bf616a">ada2</span><span>    ONLINE       0     0     0
+</span><span>            </span><span style="color:#bf616a">ada3</span><span>    ONLINE       0     0     0
+</span><span>            </span><span style="color:#bf616a">ada4</span><span>    ONLINE       0     0     0
+</span><span>
+</span><span style="color:#bf616a">errors:</span><span> No known data errors
+</span></code></pre><p>This command creates a RAID-Z1 pool named <code>myraidzpool</code> using four devices. RAID-Z1 provides parity protection, allowing the pool to tolerate the failure of one disk without data loss.<hr><p>These additional examples show how to create a ZFS storage pool with two mirrors and a RAID-Z1 configuration, each providing different levels of redundancy and performance.<h4 id="destroying-a-zfs-storage-pool">Destroying a ZFS Storage Pool</h4><p>To destroy a zpool, use the <code>zpool destroy</code> command. This operation is irreversible and will result in the loss of all data in the pool, so it should be used with caution:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zpool destroy mypool
+</span></code></pre><p>The <code>mypool</code> zpool and all datasets, snapshots, and volumes within it will be permanently deleted. Ensure that all important data is backed up before destroying a pool.<h3 id="adding-and-removing-devices">Adding and Removing Devices</h3><h4 id="adding-devices-to-a-zfs-storage-pool">Adding Devices to a ZFS Storage Pool</h4><p>ZFS allows additional devices to be added to an existing pool, increasing its capacity. Devices can be added to a pool using the <code>zpool add</code> command. For example, to add a new disk to the pool <code>mypool</code>:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zpool add mypool /dev/ada3
+</span><span style="color:#bf616a">$</span><span> sudo zpool status mypool
+</span><span>  </span><span style="color:#bf616a">pool:</span><span> mypool
+</span><span> </span><span style="color:#bf616a">state:</span><span> ONLINE
+</span><span>  </span><span style="color:#bf616a">scan:</span><span> none requested
+</span><span style="color:#bf616a">config:
+</span><span>
+</span><span>        </span><span style="color:#bf616a">NAME</span><span>        STATE     READ WRITE CKSUM
+</span><span>        </span><span style="color:#bf616a">mypool</span><span>      ONLINE       0     0     0
+</span><span>          </span><span style="color:#bf616a">mirror-0</span><span>  ONLINE       0     0     0
+</span><span>            </span><span style="color:#bf616a">ada1</span><span>    ONLINE       0     0     0
+</span><span>            </span><span style="color:#bf616a">ada2</span><span>    ONLINE       0     0     0
+</span><span>        </span><span style="color:#bf616a">ada3</span><span>        ONLINE       0     0     0
+</span><span>
+</span><span style="color:#bf616a">errors:</span><span> No known data errors
+</span></code></pre><p>This increases the storage capacity of the pool by adding <code>/dev/ada3</code>. It is important to note that adding devices to a pool is a permanent operation. Devices added to the pool cannot be removed unless specific configurations, such as mirrored VDEVs, are used.<h4 id="removing-devices-from-a-zfs-storage-pool">Removing Devices from a ZFS Storage Pool</h4><p>ZFS supports removing devices from certain pool configurations. For example, in a mirrored configuration, a device can be safely removed without data loss. Use the <code>zpool remove</code> command to remove a device:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zpool remove mypool /dev/ada3
+</span><span style="color:#bf616a">$</span><span> sudo zpool status mypool
+</span><span>  </span><span style="color:#bf616a">pool:</span><span> mypool
+</span><span> </span><span style="color:#bf616a">state:</span><span> ONLINE
+</span><span>  </span><span style="color:#bf616a">scan:</span><span> none requested
+</span><span style="color:#bf616a">config:
+</span><span>
+</span><span>        </span><span style="color:#bf616a">NAME</span><span>        STATE     READ WRITE CKSUM
+</span><span>        </span><span style="color:#bf616a">mypool</span><span>      ONLINE       0     0     0
+</span><span>          </span><span style="color:#bf616a">mirror-0</span><span>  ONLINE       0     0     0
+</span><span>            </span><span style="color:#bf616a">ada1</span><span>    ONLINE       0     0     0
+</span><span>            </span><span style="color:#bf616a">ada2</span><span>    ONLINE       0     0     0
+</span><span>
+</span><span style="color:#bf616a">errors:</span><span> No known data errors
+</span></code></pre><p>This removes the device <code>/dev/ada3</code> from the <code>mypool</code> zpool. Keep in mind that not all pool configurations allow for device removal, and attempting to remove devices from configurations that do not support it can lead to data loss.<h3 id="expanding-and-resizing-pools">Expanding and Resizing Pools</h3><h4 id="expanding-a-zfs-storage-pool">Expanding a ZFS Storage Pool</h4><p>A ZFS storage pool can be expanded by adding additional devices or replacing existing devices with larger ones. When a device in a pool is replaced with a larger one, ZFS automatically resizes the pool to utilize the additional capacity. To replace a device, use the <code>zpool replace</code> command:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zpool replace mypool /dev/ada1 /dev/ada4
+</span><span style="color:#bf616a">$</span><span> sudo zpool status mypool
+</span><span>  </span><span style="color:#bf616a">pool:</span><span> mypool
+</span><span> </span><span style="color:#bf616a">state:</span><span> ONLINE
+</span><span>  </span><span style="color:#bf616a">scan:</span><span> resilvering   20% complete
+</span><span style="color:#bf616a">config:
+</span><span>
+</span><span>        </span><span style="color:#bf616a">NAME</span><span>        STATE     READ WRITE CKSUM
+</span><span>        </span><span style="color:#bf616a">mypool</span><span>      ONLINE       0     0     0
+</span><span>          </span><span style="color:#bf616a">mirror-0</span><span>  ONLINE       0     0     0
+</span><span>            </span><span style="color:#bf616a">ada4</span><span>    ONLINE       0     0     0
+</span><span>            </span><span style="color:#bf616a">ada2</span><span>    ONLINE       0     0     0
+</span><span>
+</span><span style="color:#bf616a">errors:</span><span> No known data errors
+</span></code></pre><p>In this example, <code>/dev/ada1</code> is replaced with <code>/dev/ada4</code>. Once the replacement is complete, ZFS resizes the pool to make use of the extra space.<h4 id="resizing-a-zfs-storage-pool">Resizing a ZFS Storage Pool</h4><p>In most cases, ZFS automatically resizes a pool when new devices are added or when existing devices are replaced with larger ones. There is no need to manually resize the pool. However, the pool’s capacity can be checked with the <code>zpool list</code> command:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zpool list mypool
+</span><span style="color:#bf616a">NAME</span><span>    SIZE  ALLOC   FREE  CKPOINT  EXPANDSZ   FRAG    CAP  DEDUP  HEALTH  ALTROOT
+</span><span style="color:#bf616a">mypool</span><span>  928G  10.5G   917G        -         -     0%     1%  1.00x  ONLINE  -
+</span></code></pre><p>This command provides information about the current capacity and usage of the pool.<h3 id="monitoring-pool-health">Monitoring Pool Health</h3><h4 id="checking-the-health-of-a-zfs-storage-pool">Checking the Health of a ZFS Storage Pool</h4><p>ZFS provides tools to monitor the health of zpools and ensure that data is protected against corruption or device failure. The <code>zpool status</code> command is the primary tool for checking the status of a pool:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zpool status mypool
+</span><span>  </span><span style="color:#bf616a">pool:</span><span> mypool
+</span><span> </span><span style="color:#bf616a">state:</span><span> ONLINE
+</span><span>  </span><span style="color:#bf616a">scan:</span><span> none requested
+</span><span style="color:#bf616a">config:
+</span><span>
+</span><span>        </span><span style="color:#bf616a">NAME</span><span>        STATE     READ WRITE CKSUM
+</span><span>        </span><span style="color:#bf616a">mypool</span><span>      ONLINE       0     0     0
+</span><span>          </span><span style="color:#bf616a">mirror-0</span><span>  ONLINE       0     0     0
+</span><span>            </span><span style="color:#bf616a">ada4</span><span>    ONLINE       0     0     0
+</span><span>            </span><span style="color:#bf616a">ada2</span><span>    ONLINE       0     0     0
+</span><span>
+</span><span style="color:#bf616a">errors:</span><span> No known data errors
+</span></code></pre><p>This command displays detailed information about the pool’s configuration, the status of the devices, and any errors that have occurred. ZFS continuously checks for data consistency and reports any issues. If errors are detected, ZFS attempts to repair the data using redundant copies.<h4 id="scrubbing-a-zfs-storage-pool">Scrubbing a ZFS Storage Pool</h4><p>Scrubbing is a process that verifies data integrity across the entire pool by reading all the data and correcting any errors using redundant copies. To initiate a scrub, use the <code>zpool scrub</code> command:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zpool scrub mypool
+</span><span style="color:#bf616a">$</span><span> sudo zpool status mypool
+</span><span>  </span><span style="color:#bf616a">pool:</span><span> mypool
+</span><span> </span><span style="color:#bf616a">state:</span><span> ONLINE
+</span><span>  </span><span style="color:#bf616a">scan:</span><span> scrub in progress since Fri Nov  5 14:32:09 2024
+</span><span>        </span><span style="color:#bf616a">20.1G</span><span> scanned at 215M/s, 6.73G issued at 72.0M/s, 10.5G total
+</span><span>        </span><span style="color:#bf616a">0B</span><span> repaired, 64% done, 00:02:11 to go
+</span><span style="color:#bf616a">config:
+</span><span>
+</span><span>        </span><span style="color:#bf616a">NAME</span><span>        STATE     READ WRITE CKSUM
+</span><span>        </span><span style="color:#bf616a">mypool</span><span>      ONLINE       0     0     0
+</span><span>          </span><span style="color:#bf616a">mirror-0</span><span>  ONLINE       0     0     0
+</span><span>            </span><span style="color:#bf616a">ada4</span><span>    ONLINE       0     0     0
+</span><span>            </span><span style="color:#bf616a">ada2</span><span>    ONLINE       0     0     0
+</span><span>
+</span><span style="color:#bf616a">errors:</span><span> No known data errors
+</span></code></pre><p>This command starts a scrub of the <code>mypool</code> zpool. Scrubbing is recommended periodically to ensure data integrity, especially in pools with large amounts of data or in environments where data reliability is critical. The progress of the scrub can be monitored using the <code>zpool status</code> command.<h2 id="dealing-with-a-failed-device-in-zfs">Dealing with a Failed Device in ZFS</h2><p>One of the key features of ZFS is its ability to handle device failures gracefully, particularly in configurations that offer redundancy, such as mirrors or RAID-Z. When a device in a ZFS pool fails, the system can continue operating if redundancy is configured, and the faulty device can be replaced to restore the pool’s full functionality. Below is a step-by-step guide to diagnosing and addressing a failed device in ZFS.<h3 id="identifying-a-failed-device">Identifying a Failed Device</h3><p>The first step in dealing with a failed device is to identify the issue. The <code>zpool status</code> command provides detailed information about the health of a zpool and its devices.<p>For example:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zpool status mypool
+</span><span>  </span><span style="color:#bf616a">pool:</span><span> mypool
+</span><span> </span><span style="color:#bf616a">state:</span><span> DEGRADED
+</span><span style="color:#bf616a">status:</span><span> One or more devices are faulted in response to IO failures.
+</span><span style="color:#bf616a">action:</span><span> Replace the faulted device, or run '</span><span style="color:#a3be8c">zpool clear</span><span>' to mark the device healthy.
+</span><span>  </span><span style="color:#bf616a">scan:</span><span> none requested
+</span><span style="color:#bf616a">config:
+</span><span>
+</span><span>        </span><span style="color:#bf616a">NAME</span><span>        STATE     READ WRITE CKSUM
+</span><span>        </span><span style="color:#bf616a">mypool</span><span>      DEGRADED     0     0     0
+</span><span>          </span><span style="color:#bf616a">mirror-0</span><span>  DEGRADED     0     0     0
+</span><span>            </span><span style="color:#bf616a">ada1</span><span>    ONLINE       0     0     0
+</span><span>            </span><span style="color:#bf616a">ada2</span><span>    FAULTED      0    42     0  too many errors
+</span><span>
+</span><span style="color:#bf616a">errors:</span><span> No known data errors
+</span></code></pre><p>In this example, the pool <code>mypool</code> is in a <strong>DEGRADED</strong> state, and the device <code>/dev/ada2</code> has <strong>FAULTED</strong> due to too many I/O errors. The pool is still functional because <code>/dev/ada1</code> is part of a mirror, but redundancy is lost.<h3 id="replacing-the-failed-device">Replacing the Failed Device</h3><p>Once a device has failed, it needs to be replaced to restore redundancy and ensure data integrity. Follow these steps to replace the failed device.<h4 id="1-attach-the-new-device">1. Attach the New Device</h4><p>First, physically replace the failed device with a new one. This could involve swapping out a disk or connecting a new disk to the system.<h4 id="2-use-the-zpool-replace-command">2. Use the <code>zpool replace</code> Command</h4><p>After physically replacing the failed device, the <code>zpool replace</code> command can be used to replace the old device with the new one. For example:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zpool replace mypool /dev/ada2 /dev/ada3
+</span></code></pre><p>In this command, <code>/dev/ada2</code> is the failed device, and <code>/dev/ada3</code> is the new device that will take its place.<p>During the replacement process, ZFS automatically begins a <strong>resilvering</strong> process, which rebuilds the data from the working device(s) in the mirror or RAID-Z configuration onto the new device.<p>The resilvering process can be monitored using the <code>zpool status</code> command:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zpool status mypool
+</span><span>  </span><span style="color:#bf616a">pool:</span><span> mypool
+</span><span> </span><span style="color:#bf616a">state:</span><span> DEGRADED
+</span><span style="color:#bf616a">status:</span><span> One or more devices is currently being resilvered.  The pool will continue
+</span><span>        </span><span style="color:#bf616a">to</span><span> function, possibly in a degraded state.
+</span><span style="color:#bf616a">action:</span><span> Wait for the resilver to complete.
+</span><span>  </span><span style="color:#bf616a">scan:</span><span> resilver in progress since Sun Sep  5 12:45:09 2024
+</span><span>        </span><span style="color:#bf616a">1.21G</span><span> scanned at 105M/s, 780M issued at 65M/s, 2.10G total
+</span><span>        </span><span style="color:#bf616a">0B</span><span> repaired, 37% done, 00:03:52 to go
+</span><span style="color:#bf616a">config:
+</span><span>
+</span><span>        </span><span style="color:#bf616a">NAME</span><span>        STATE     READ WRITE CKSUM
+</span><span>        </span><span style="color:#bf616a">mypool</span><span>      DEGRADED     0     0     0
+</span><span>          </span><span style="color:#bf616a">mirror-0</span><span>  DEGRADED     0     0     0
+</span><span>            </span><span style="color:#bf616a">ada1</span><span>    ONLINE       0     0     0
+</span><span>            </span><span style="color:#bf616a">ada3</span><span>    ONLINE       0     0     0  (resilvering)
+</span><span>
+</span><span style="color:#bf616a">errors:</span><span> No known data errors
+</span></code></pre><p>Once the resilvering process is complete, the pool will return to a healthy state, and redundancy will be restored.<h4 id="3-verify-the-pool-s-health">3. Verify the Pool's Health</h4><p>After the resilvering process is complete, it is important to verify that the pool is back to a healthy state by checking the pool status:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zpool status mypool
+</span><span>  </span><span style="color:#bf616a">pool:</span><span> mypool
+</span><span> </span><span style="color:#bf616a">state:</span><span> ONLINE
+</span><span>  </span><span style="color:#bf616a">scan:</span><span> resilvered 2.10G in 0h3m with 0 errors on Sun Sep  5 12:49:01 2024
+</span><span style="color:#bf616a">config:
+</span><span>
+</span><span>        </span><span style="color:#bf616a">NAME</span><span>        STATE     READ WRITE CKSUM
+</span><span>        </span><span style="color:#bf616a">mypool</span><span>      ONLINE       0     0     0
+</span><span>          </span><span style="color:#bf616a">mirror-0</span><span>  ONLINE       0     0     0
+</span><span>            </span><span style="color:#bf616a">ada1</span><span>    ONLINE       0     0     0
+</span><span>            </span><span style="color:#bf616a">ada3</span><span>    ONLINE       0     0     0
+</span><span>
+</span><span style="color:#bf616a">errors:</span><span> No known data errors
+</span></code></pre><p>At this point, the pool has returned to an <strong>ONLINE</strong> state, and the system is fully functional with redundancy restored.<h3 id="dealing-with-non-redundant-pools">Dealing with Non-Redundant Pools</h3><p>If the failed device is part of a non-redundant configuration (for example, a single-disk pool), the pool will enter a <strong>FAULTED</strong> state and become unavailable. In these cases, data recovery might be difficult unless backups exist. Here’s how the status might look in such a situation:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zpool status mypool
+</span><span>  </span><span style="color:#bf616a">pool:</span><span> mypool
+</span><span> </span><span style="color:#bf616a">state:</span><span> FAULTED
+</span><span style="color:#bf616a">status:</span><span> The pool cannot be accessed. All devices are faulted or degraded.
+</span><span style="color:#bf616a">action:</span><span> Replace the faulted device and restore the pool, if possible.
+</span><span>  </span><span style="color:#bf616a">scan:</span><span> none requested
+</span><span style="color:#bf616a">config:
+</span><span>
+</span><span>        </span><span style="color:#bf616a">NAME</span><span>        STATE     READ WRITE CKSUM
+</span><span>        </span><span style="color:#bf616a">mypool</span><span>      FAULTED     0     0     0
+</span><span>          </span><span style="color:#bf616a">ada1</span><span>      FAULTED     0     0     0  too many errors
+</span><span>
+</span><span style="color:#bf616a">errors:</span><span> No known data errors
+</span></code></pre><p>In this case, there is no redundancy, and the data on the failed disk may be lost. Replacing the device will not restore the pool, and data recovery tools outside of ZFS may be required. This underscores the importance of using redundant configurations like mirrors or RAID-Z and maintaining regular backups.<h3 id="clearing-errors-after-a-transient-failure">Clearing Errors After a Transient Failure</h3><p>In some cases, a device may experience a temporary or transient failure, such as a loose cable or momentary I/O issue. After addressing the root cause of the problem, errors can be cleared and the device re-tested using the <code>zpool clear</code> command:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zpool clear mypool /dev/ada2
+</span></code></pre><p>This command clears the error counts for the specified device and allows ZFS to re-check the device's health.<h3 id="importing-and-exporting-pools">Importing and Exporting Pools</h3><p>ZFS allows storage pools (zpools) to be exported and imported, providing a way to move storage pools between systems or manage storage pools across different operating environments. When a pool is exported, it is safely detached from the current system, ensuring that the pool’s metadata is consistent. The pool can then be imported on the same or another system without data loss.<h4 id="exporting-a-zfs-storage-pool">Exporting a ZFS Storage Pool</h4><p>Exporting a pool detaches it from the system while leaving the data on the underlying devices untouched. This operation is useful when moving a pool to another system or making hardware changes.<p>To export a pool, use the <code>zpool export</code> command. For example, to export a pool named <code>mypool</code>:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zpool export mypool
+</span></code></pre><p>After this command, the pool is no longer accessible from the current system. The pool's data and structure are preserved, but ZFS releases the pool and any associated devices, allowing them to be moved to another system.<p><strong>Note</strong>: Ensure that no datasets or applications are actively using the pool before exporting it, as this could result in data corruption or access errors.<h4 id="importing-a-zfs-storage-pool">Importing a ZFS Storage Pool</h4><p>Once a pool has been exported, it can be imported back into the same system or a different one. To import a pool, use the <code>zpool import</code> command. First, you can list all available pools that can be imported with:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zpool import
+</span><span>   </span><span style="color:#bf616a">pool:</span><span> mypool
+</span><span>     </span><span style="color:#bf616a">id:</span><span> 1234567890123456789
+</span><span>  </span><span style="color:#bf616a">state:</span><span> ONLINE
+</span><span> </span><span style="color:#bf616a">action:</span><span> The pool can be imported using its name or numeric identifier.
+</span><span> </span><span style="color:#bf616a">config:
+</span><span>
+</span><span>        </span><span style="color:#bf616a">mypool</span><span>     ONLINE
+</span><span>          </span><span style="color:#bf616a">mirror-0</span><span>  ONLINE
+</span><span>            </span><span style="color:#bf616a">ada1</span><span>    ONLINE
+</span><span>            </span><span style="color:#bf616a">ada2</span><span>    ONLINE
+</span></code></pre><p>This command lists all pools available for import, including the pool’s name (<code>mypool</code>), pool ID, and the configuration of its devices. You can then import the pool using its name:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zpool import mypool
+</span><span style="color:#bf616a">$</span><span> sudo zpool status
+</span><span>  </span><span style="color:#bf616a">pool:</span><span> mypool
+</span><span> </span><span style="color:#bf616a">state:</span><span> ONLINE
+</span><span>  </span><span style="color:#bf616a">scan:</span><span> none requested
+</span><span style="color:#bf616a">config:
+</span><span>
+</span><span>        </span><span style="color:#bf616a">NAME</span><span>        STATE     READ WRITE CKSUM
+</span><span>        </span><span style="color:#bf616a">mypool</span><span>      ONLINE       0     0     0
+</span><span>          </span><span style="color:#bf616a">mirror-0</span><span>  ONLINE       0     0     0
+</span><span>            </span><span style="color:#bf616a">ada1</span><span>    ONLINE       0     0     0
+</span><span>            </span><span style="color:#bf616a">ada2</span><span>    ONLINE       0     0     0
+</span><span>
+</span><span style="color:#bf616a">errors:</span><span> No known data errors
+</span></code></pre><p>Alternatively, if there are multiple pools with the same name, you can use the pool ID to import the pool:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zpool import 1234567890123456789
+</span></code></pre><p>After importing, the pool and all datasets within it become available, and the system can access the data as if the pool had always been attached.<h4 id="forcing-an-import">Forcing an Import</h4><p>In some cases, the pool may not have been properly exported, or it may have been imported on another system without proper detachment. If a pool is in use by another system or was not exported cleanly, you may need to force the import. Use the <code>-f</code> option to force the import:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zpool import</span><span style="color:#bf616a"> -f</span><span> mypool
+</span></code></pre><p><strong>Warning</strong>: Forcing an import should be used with caution. If the pool is in use on another system, forcing an import may lead to data corruption.<h4 id="handling-pool-conflicts-during-import">Handling Pool Conflicts During Import</h4><p>If the system detects a pool with the same name as an existing pool on the current system, ZFS will prevent the import to avoid conflicts. In such cases, you can rename the pool during import to resolve the conflict. For example, to import a pool named <code>mypool</code> as <code>mypool2</code>:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zpool import mypool mypool2
+</span></code></pre><p>This renames the pool during import, allowing it to coexist with the existing pool of the same name.<h3 id="example-workflow-moving-a-pool-between-systems">Example Workflow: Moving a Pool Between Systems</h3><ol><li><p><strong>On the source system</strong>, export the pool:</p> <pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zpool export mypool
+</span></code></pre><li><p><strong>Move the storage devices</strong> (e.g., disks) associated with the pool to the new system.</p><li><p><strong>On the destination system</strong>, import the pool:</p> <pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zpool import mypool
+</span></code></pre></ol><p>If the pool was not cleanly exported or the system cannot automatically import it, use the force option:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zpool import</span><span style="color:#bf616a"> -f</span><span> mypool
+</span></code></pre><h2 id="using-zpool-history-to-track-pool-operations">Using <code>zpool history</code> to Track Pool Operations</h2><p>The <code>zpool history</code> command is a useful tool that provides an audit trail of all operations performed on a ZFS storage pool. It records all administrative actions, such as pool creation, modifications, and settings changes, along with the corresponding timestamps. This can be helpful for debugging, auditing, or simply understanding the lifecycle of a pool and its datasets.<h3 id="viewing-the-history-of-a-zfs-pool">Viewing the History of a ZFS Pool</h3><p>To view the history of a specific zpool, use the <code>zpool history</code> command followed by the name of the pool. This will display a list of all commands and operations performed on the pool since its creation.<p>For example, to view the history of a pool named <code>mypool</code>, run the following command:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zpool history mypool
+</span><span style="color:#bf616a">History</span><span> for '</span><span style="color:#a3be8c">mypool</span><span>':
+</span><span style="color:#bf616a">2024-11-05.14:45:32</span><span> zpool create mypool mirror /dev/ada1 /dev/ada2
+</span><span style="color:#bf616a">2024-11-05.15:10:45</span><span> zpool add mypool /dev/ada3
+</span><span style="color:#bf616a">2024-11-05.15:22:13</span><span> zfs create mypool/dataset1
+</span><span style="color:#bf616a">2024-11-05.15:55:01</span><span> zfs set compression=on mypool/dataset1
+</span></code></pre><p>In this example, the output shows the following operations performed on the <code>mypool</code> zpool:<ol><li>The pool was created as a mirror of two devices (<code>ada1</code> and <code>ada2</code>).<li>An additional device (<code>ada3</code>) was added to the pool.<li>A dataset (<code>mypool/dataset1</code>) was created within the pool.<li>Compression was enabled on the dataset.</ol><p>Each entry includes a timestamp to provide a chronological record of events.<h3 id="viewing-all-pool-histories">Viewing All Pool Histories</h3><p>If you want to see the history of all zpools on your system, simply run the <code>zpool history</code> command without specifying a pool name:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zpool history
+</span><span style="color:#bf616a">History</span><span> for '</span><span style="color:#a3be8c">mypool</span><span>':
+</span><span style="color:#bf616a">2024-11-05.14:45:32</span><span> zpool create mypool mirror /dev/ada1 /dev/ada2
+</span><span style="color:#bf616a">2024-11-05.15:10:45</span><span> zpool add mypool /dev/ada3
+</span><span style="color:#bf616a">2024-11-05.15:22:13</span><span> zfs create mypool/dataset1
+</span><span style="color:#bf616a">2024-11-05.15:55:01</span><span> zfs set compression=on mypool/dataset1
+</span><span>
+</span><span style="color:#bf616a">History</span><span> for '</span><span style="color:#a3be8c">anotherpool</span><span>':
+</span><span style="color:#bf616a">2024-11-06.10:25:18</span><span> zpool create anotherpool raidz1 /dev/ada4 /dev/ada5 /dev/ada6
+</span><span style="color:#bf616a">2024-11-06.12:13:39</span><span> zfs create anotherpool/dataset2
+</span></code></pre><p>This command lists the history of all zpools on the system, along with a breakdown of the commands run on each pool.<h3 id="including-internal-zfs-events">Including Internal ZFS Events</h3><p>In addition to user-issued commands, you can also display internal ZFS events by using the <code>-i</code> option. This shows not only administrative commands but also internal system events related to the pool, such as scrubbing, resilvering, or other automated maintenance tasks:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zpool history</span><span style="color:#bf616a"> -i</span><span> mypool
+</span><span style="color:#bf616a">History</span><span> for '</span><span style="color:#a3be8c">mypool</span><span>':
+</span><span style="color:#bf616a">2024-11-05.14:45:32</span><span> zpool create mypool mirror /dev/ada1 /dev/ada2
+</span><span style="color:#bf616a">2024-11-05.15:10:45</span><span> zpool add mypool /dev/ada3
+</span><span style="color:#bf616a">2024-11-05.15:55:01</span><span> zfs set compression=on mypool/dataset1
+</span><span style="color:#bf616a">2024-11-06.09:10:21</span><span> scrub initiated
+</span><span style="color:#bf616a">2024-11-06.09:50:42</span><span> scrub completed
+</span></code></pre><p>This example shows that a scrub was automatically initiated and completed, in addition to the user-issued commands.<h3 id="filtering-the-history">Filtering the History</h3><p>You can also filter the history output to show only certain types of operations. This is useful for auditing specific changes or debugging. For example, to search for all dataset creation commands, you could filter the output like this:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zpool history | </span><span style="color:#bf616a">grep</span><span> create
+</span><span style="color:#bf616a">2024-11-05.15:22:13</span><span> zfs create mypool/dataset1
+</span><span style="color:#bf616a">2024-11-06.12:13:39</span><span> zfs create anotherpool/dataset2
+</span></code></pre><p>This filters the output to show only <code>zfs create</code> commands from the history logs.<h3 id="use-cases-for-zpool-history">Use Cases for <code>zpool history</code></h3><p>The <code>zpool history</code> command is a valuable tool in several scenarios:<ul><li><p><strong>Auditing</strong>: It allows administrators to review what changes were made to the pool and when. This is especially useful in environments where multiple people have access to ZFS administrative tools.</p><li><p><strong>Debugging</strong>: If a pool is experiencing issues or if changes led to unexpected behavior, reviewing the history can help track down which operations might have caused the problem.</p><li><p><strong>Compliance</strong>: For organizations that need to track administrative operations for compliance or security reasons, <code>zpool history</code> provides an easily accessible audit trail.</p><li><p><strong>Documentation</strong>: When performing complex configurations, <code>zpool history</code> can serve as a record of the steps taken to configure pools, making it easier to replicate the setup on other systems.</p></ul><div class="docs-navigation d-flex justify-content-between"><a href="/docs/zfs-architecture/zfs-architecture/"> <div class="card my-1"><div class="card-body py-2">← ZFS Architecture</div></div> </a><a class="ms-auto" href="/docs/advanced-zfs/data-integrity-and-self-healing/"> <div class="card my-1"><div class="card-body py-2">Data Integrity and Self-Healing →</div></div> </a></div></main></div></div></div><footer class="footer text-muted"><div class="container"><div class="row"><div class="col-lg-8 order-last order-lg-first"><ul class="list-inline"><li class="list-inline-item">Powered by <a href="https://www.makesite.sh/">makesite.sh</a>, a <a href="https://www.dutchbsd.com/">DutchBSD B.V.</a> product.</ul></div><div class="col-lg-8 order-first order-lg-last text-lg-end"><ul class="list-inline"></ul></div></div></div></footer>

@@ -1,0 +1,84 @@
+<!doctype html><html lang="en-US"><head>
+
+
+
+
+
+
+<!-- End Wayback Rewrite JS Include -->
+<meta charset="utf-8"><meta content="ie=edge" http-equiv="x-ua-compatible"><meta content="width=device-width,initial-scale=1,shrink-to-fit=no" name="viewport"><link as="font" crossorigin href="/fonts/vendor/jost/jost-v4-latin-regular.woff2" rel="preload" type="font/woff2"><link as="font" crossorigin href="/fonts/vendor/jost/jost-v4-latin-700.woff2" rel="preload" type="font/woff2"><link href="/main.css" rel="stylesheet"><meta content="index, follow" name="robots"><meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name="googlebot"><meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name="bingbot"><title>Access Control | ZFS Handbook</title><meta content="Discussion of access control mechanisms in ZFS, including managing user permissions and integrating with existing security models." name="description"><link href="/docs/security/access-control/" rel="canonical"><script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    
+      
+      {
+        "@type": "ListItem",
+        "position":  1,
+        "name": "Home",
+        "item": "/"
+      },
+      
+        
+        
+        
+          
+          
+        
+        
+        
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Docs",
+          "item": "/docs/"
+        },
+        
+      
+        
+        
+        
+          
+          
+        
+        
+        
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Security",
+          "item": "/docs/security/"
+        },
+        
+      
+        
+        
+        
+          
+          
+        
+          
+          
+        
+        
+        
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Access Control",
+          "item": "/docs/security/access-control/"
+        }
+        
+      
+    
+  ]
+}
+</script><meta content="#fff" name="theme-color"><link href="//apple-icon-57x57.png" rel="apple-touch-icon" sizes="57x57"><link href="//apple-icon-60x60.png" rel="apple-touch-icon" sizes="60x60"><link href="//apple-icon-72x72.png" rel="apple-touch-icon" sizes="72x72"><link href="//apple-icon-76x76.png" rel="apple-touch-icon" sizes="76x76"><link href="//apple-icon-114x114.png" rel="apple-touch-icon" sizes="114x114"><link href="//apple-icon-120x120.png" rel="apple-touch-icon" sizes="120x120"><link href="//apple-icon-144x144.png" rel="apple-touch-icon" sizes="144x144"><link href="//apple-icon-152x152.png" rel="apple-touch-icon" sizes="152x152"><link href="//apple-icon-180x180.png" rel="apple-touch-icon" sizes="180x180"><link href="//android-icon-192x192.png" rel="icon" sizes="192x192" type="image/png"><link href="//favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"><link href="//favicon-96x96.png" rel="icon" sizes="96x96" type="image/png"><link href="//favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"><link href="//manifest.json" rel="manifest"><meta content="#ffffff" name="msapplication-TileColor"><meta content="/ms-icon-144x144.png" name="msapplication-TileImage"><link crossorigin href="/site.webmanifest" rel="manifest"><body class="docs single"><header class="navbar fixed-top navbar-expand-md navbar-light"><div class="container"><input class="menu-btn order-0" id="menu-btn" type="checkbox"><label class="menu-icon d-md-none" for="menu-btn"><span class="navicon"></span></label><a class="navbar-brand order-1 order-md-0 me-auto" href="/">ZFS Handbook</a><button aria-label="Toggle mode" class="btn btn-link order-2 order-md-4" id="mode" type="button"><span class="toggle-dark"><svg class="feather feather-moon" viewbox="0 0 24 24" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span> <span class="toggle-light"><svg class="feather feather-sun" viewbox="0 0 24 24" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="5"></circle><line x1="12" x2="12" y1="1" y2="3"></line><line x1="12" x2="12" y1="21" y2="23"></line><line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line><line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line><line x1="1" x2="3" y1="12" y2="12"></line><line x1="21" x2="23" y1="12" y2="12"></line><line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line><line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line></svg></span></button><ul class="navbar-nav fork-me order-3 order-md-5"></ul><div class="collapse navbar-collapse order-4 order-md-1"><ul class="navbar-nav main-nav me-auto order-5 order-md-2"><li class="nav-item docs active"><a class="nav-link" href="/docs/getting-started/introduction/">Handbook</a></ul><div class="break order-6 d-md-none"></div><form class="navbar-form flex-grow-1 order-7 order-md-3"><input aria-label="Search docs..." class="form-control is-search" placeholder="Search docs..." autocomplete="off" id="userinput" type="search"><div class="shadow bg-white rounded" id="suggestions"></div></form></div></div></header><div class="wrap container" role="document"><div class="content"><div class="row flex-xl-nowrap"><div class="col-lg-5 col-xl-4 docs-sidebar"><nav aria-label="Main navigation" class="docs-links"><h3>Getting Started</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/getting-started/introduction/">Introduction</a><li><a class="docs-link" href="/docs/getting-started/freebsd-install/">Installing ZFS (FreeBSD)</a><li><a class="docs-link" href="/docs/getting-started/linux-install/">Installing ZFS (Linux)</a></ul><h3>ZFS Architecture</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/zfs-architecture/basic-components/">Basic Components</a><li><a class="docs-link" href="/docs/zfs-architecture/zfs-architecture/">ZFS Architecture</a></ul><h3>ZFS Administration</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/zfs-administration/zpool-administration/">ZPOOL Administration</a><li><a class="docs-link" href="/docs/zfs-administration/zfs-administration/">ZFS Administration</a></ul><h3>Advanced ZFS</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/advanced-zfs/data-integrity-and-self-healing/">Data Integrity and Self-Healing</a><li><a class="docs-link" href="/docs/advanced-zfs/performance-tuning/">Performance Tuning</a><li><a class="docs-link" href="/docs/advanced-zfs/compression/">Compression</a><li><a class="docs-link" href="/docs/advanced-zfs/deduplication/">Deduplication</a></ul><h3>Security</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/security/encryption/">Encryption</a><li><a class="docs-link active" href="/docs/security/access-control/">Access Control</a></ul><h3>Backup and Recovery</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/backup-and-recovery/disaster-recovery/">Disaster Recovery</a><li><a class="docs-link" href="/docs/backup-and-recovery/replication/">Replication</a><li><a class="docs-link" href="/docs/backup-and-recovery/strategies/">Backup Strategies</a></ul><h3>ZFS in Production</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/production/enterprise/">Enterprise Deployment</a><li><a class="docs-link" href="/docs/production/large-scale/">Large Scale Deployments</a></ul><h3>Troubleshooting and Maintenance</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/troubleshooting/common-issues/">Common Issues and Solutions</a><li><a class="docs-link" href="/docs/troubleshooting/debugging/">Debugging ZFS</a></ul><h3>Migration Guides</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/migrating/btrfs/">BTRFS</a><li><a class="docs-link" href="/docs/migrating/ext4/">EXT4</a><li><a class="docs-link" href="/docs/migrating/lvm/">LVM</a><li><a class="docs-link" href="/docs/migrating/vxvm/">VxVM</a><li><a class="docs-link" href="/docs/migrating/xfs/">XFS</a></ul><h3>References</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/references/glossary/">Glossary</a><li><a class="docs-link" href="/docs/references/cheatsheet/">ZFS Cheat Sheet</a><li><a class="docs-link" href="/docs/references/command-reference/">ZFS Command Reference</a></ul><h3>Misceleaneous</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/misceleaneous/comparison/">FS &amp; LVM Comparison</a><li><a class="docs-link" href="/docs/misceleaneous/legal/">ZFS License and Legal Considerations</a></ul></nav></div><nav aria-label="Secondary navigation" class="docs-toc d-none d-xl-block col-xl-3"><div class="page-links"><h3>On this page</h3><nav id="TableOfContents"><ul><li><a href="/docs/security/access-control/#setting-permissions-on-datasets">Setting Permissions on Datasets</a><li><a href="/docs/security/access-control/#managing-user-access">Managing User Access</a></ul></nav></div></nav><main class="docs-content col-lg-11 col-xl-9"><h1>Access Control</h1><p>ZFS provides mechanisms to set and manage permissions for datasets, allowing administrators to control user access. Permissions can be configured using Unix-like permission bits, Access Control Lists (ACLs), and ZFS delegation.<h2 id="setting-permissions-on-datasets">Setting Permissions on Datasets</h2><p>ZFS datasets follow the standard Unix permission model, where each file and directory has an owner, a group, and a set of permission bits for read, write, and execute access. These permissions can be adjusted using <code>chmod</code>, <code>chown</code>, and <code>chgrp</code>.<p>To modify basic Unix-like permissions for a ZFS dataset, the following command grants the owner full read, write, and execute permissions:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo chmod 700 /mypool/mydataset
+</span></code></pre><p>This sets the permissions to <code>700</code>, meaning the owner has full control (read, write, and execute), while no access is granted to the group or others.<p>Ownership of the dataset can be modified using <code>chown</code>:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo chown user:group /mypool/mydataset
+</span></code></pre><p>This command assigns the specified user and group as the owner of the dataset.<p>In addition to standard Unix permissions, ZFS supports <strong>Access Control Lists (ACLs)</strong>, allowing for more granular control over access. ACLs provide the ability to specify permissions for individual users or groups.<p>To assign an ACL for a specific user on a dataset:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo setfacl</span><span style="color:#bf616a"> -m</span><span> u:username:rwx /mypool/mydataset
+</span></code></pre><p>This command grants the user <code>username</code> read, write, and execute access to the dataset <code>mypool/mydataset</code>.<h2 id="managing-user-access">Managing User Access</h2><p>ZFS allows specific permissions to be delegated to non-privileged users through <strong>delegation</strong>. This feature enables users to perform certain operations (such as creating snapshots or mounting datasets) without requiring full administrative access.<p>Permissions can be delegated using the <code>zfs allow</code> command. For example, to allow a user to create snapshots on a dataset:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zfs allow user create,snapshot mypool/mydataset
+</span></code></pre><p>This grants the specified <code>user</code> permission to create datasets and snapshots on <code>mypool/mydataset</code>.<p>To view the permissions currently delegated on a dataset:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zfs allow mypool/mydataset
+</span></code></pre><p>To remove delegated permissions:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zfs unallow user create,snapshot mypool/mydataset
+</span></code></pre><p>ZFS also allows permissions to be assigned to groups, simplifying access control for multiple users. To delegate mount and unmount permissions to a group:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">$</span><span> sudo zfs allow @group mount,unmount mypool/mydataset
+</span></code></pre><p>Here, <code>@group</code> refers to the group that will be granted these permissions.<p>By combining Unix permissions, ACLs, and delegation, ZFS provides flexible control over user access to datasets, suitable for various use cases, from simple to complex access control needs.<div class="docs-navigation d-flex justify-content-between"><a href="/docs/advanced-zfs/deduplication/"> <div class="card my-1"><div class="card-body py-2">← Deduplication</div></div> </a><a class="ms-auto" href="/docs/backup-and-recovery/disaster-recovery/"> <div class="card my-1"><div class="card-body py-2">Disaster Recovery →</div></div> </a></div></main></div></div></div><footer class="footer text-muted"><div class="container"><div class="row"><div class="col-lg-8 order-last order-lg-first"><ul class="list-inline"><li class="list-inline-item">Powered by <a href="https://www.makesite.sh/">makesite.sh</a>, a <a href="https://www.dutchbsd.com/">DutchBSD B.V.</a> product.</ul></div><div class="col-lg-8 order-first order-lg-last text-lg-end"><ul class="list-inline"></ul></div></div></div></footer>

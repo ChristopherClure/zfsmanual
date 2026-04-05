@@ -1,0 +1,85 @@
+<!doctype html><html lang="en-US"><head>
+
+
+
+
+
+
+<!-- End Wayback Rewrite JS Include -->
+<meta charset="utf-8"><meta content="ie=edge" http-equiv="x-ua-compatible"><meta content="width=device-width,initial-scale=1,shrink-to-fit=no" name="viewport"><link as="font" crossorigin href="/fonts/vendor/jost/jost-v4-latin-regular.woff2" rel="preload" type="font/woff2"><link as="font" crossorigin href="/fonts/vendor/jost/jost-v4-latin-700.woff2" rel="preload" type="font/woff2"><link href="/main.css" rel="stylesheet"><meta content="index, follow" name="robots"><meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name="googlebot"><meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name="bingbot"><title>Performance Tuning | ZFS Handbook</title><meta content="Guide to tuning ZFS for different workloads, including recommendations for adjusting ARC and using ZIL and SLOG for performance improvements." name="description"><link href="/docs/advanced-zfs/performance-tuning/" rel="canonical"><script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    
+      
+      {
+        "@type": "ListItem",
+        "position":  1,
+        "name": "Home",
+        "item": "/"
+      },
+      
+        
+        
+        
+          
+          
+        
+        
+        
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Docs",
+          "item": "/docs/"
+        },
+        
+      
+        
+        
+        
+          
+          
+        
+          
+          
+        
+        
+        
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Advanced Zfs",
+          "item": "/docs/advanced-zfs/"
+        },
+        
+      
+        
+        
+        
+          
+          
+        
+          
+          
+        
+        
+        
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Performance Tuning",
+          "item": "/docs/advanced-zfs/performance-tuning/"
+        }
+        
+      
+    
+  ]
+}
+</script><meta content="#fff" name="theme-color"><link href="//apple-icon-57x57.png" rel="apple-touch-icon" sizes="57x57"><link href="//apple-icon-60x60.png" rel="apple-touch-icon" sizes="60x60"><link href="//apple-icon-72x72.png" rel="apple-touch-icon" sizes="72x72"><link href="//apple-icon-76x76.png" rel="apple-touch-icon" sizes="76x76"><link href="//apple-icon-114x114.png" rel="apple-touch-icon" sizes="114x114"><link href="//apple-icon-120x120.png" rel="apple-touch-icon" sizes="120x120"><link href="//apple-icon-144x144.png" rel="apple-touch-icon" sizes="144x144"><link href="//apple-icon-152x152.png" rel="apple-touch-icon" sizes="152x152"><link href="//apple-icon-180x180.png" rel="apple-touch-icon" sizes="180x180"><link href="//android-icon-192x192.png" rel="icon" sizes="192x192" type="image/png"><link href="//favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"><link href="//favicon-96x96.png" rel="icon" sizes="96x96" type="image/png"><link href="//favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"><link href="//manifest.json" rel="manifest"><meta content="#ffffff" name="msapplication-TileColor"><meta content="/ms-icon-144x144.png" name="msapplication-TileImage"><link crossorigin href="/site.webmanifest" rel="manifest"><body class="docs single"><header class="navbar fixed-top navbar-expand-md navbar-light"><div class="container"><input class="menu-btn order-0" id="menu-btn" type="checkbox"><label class="menu-icon d-md-none" for="menu-btn"><span class="navicon"></span></label><a class="navbar-brand order-1 order-md-0 me-auto" href="/">ZFS Handbook</a><button aria-label="Toggle mode" class="btn btn-link order-2 order-md-4" id="mode" type="button"><span class="toggle-dark"><svg class="feather feather-moon" viewbox="0 0 24 24" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span> <span class="toggle-light"><svg class="feather feather-sun" viewbox="0 0 24 24" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="5"></circle><line x1="12" x2="12" y1="1" y2="3"></line><line x1="12" x2="12" y1="21" y2="23"></line><line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line><line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line><line x1="1" x2="3" y1="12" y2="12"></line><line x1="21" x2="23" y1="12" y2="12"></line><line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line><line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line></svg></span></button><ul class="navbar-nav fork-me order-3 order-md-5"></ul><div class="collapse navbar-collapse order-4 order-md-1"><ul class="navbar-nav main-nav me-auto order-5 order-md-2"><li class="nav-item docs active"><a class="nav-link" href="/docs/getting-started/introduction/">Handbook</a></ul><div class="break order-6 d-md-none"></div><form class="navbar-form flex-grow-1 order-7 order-md-3"><input aria-label="Search docs..." class="form-control is-search" placeholder="Search docs..." autocomplete="off" id="userinput" type="search"><div class="shadow bg-white rounded" id="suggestions"></div></form></div></div></header><div class="wrap container" role="document"><div class="content"><div class="row flex-xl-nowrap"><div class="col-lg-5 col-xl-4 docs-sidebar"><nav aria-label="Main navigation" class="docs-links"><h3>Getting Started</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/getting-started/introduction/">Introduction</a><li><a class="docs-link" href="/docs/getting-started/freebsd-install/">Installing ZFS (FreeBSD)</a><li><a class="docs-link" href="/docs/getting-started/linux-install/">Installing ZFS (Linux)</a></ul><h3>ZFS Architecture</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/zfs-architecture/basic-components/">Basic Components</a><li><a class="docs-link" href="/docs/zfs-architecture/zfs-architecture/">ZFS Architecture</a></ul><h3>ZFS Administration</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/zfs-administration/zpool-administration/">ZPOOL Administration</a><li><a class="docs-link" href="/docs/zfs-administration/zfs-administration/">ZFS Administration</a></ul><h3>Advanced ZFS</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/advanced-zfs/data-integrity-and-self-healing/">Data Integrity and Self-Healing</a><li><a class="docs-link active" href="/docs/advanced-zfs/performance-tuning/">Performance Tuning</a><li><a class="docs-link" href="/docs/advanced-zfs/compression/">Compression</a><li><a class="docs-link" href="/docs/advanced-zfs/deduplication/">Deduplication</a></ul><h3>Security</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/security/encryption/">Encryption</a><li><a class="docs-link" href="/docs/security/access-control/">Access Control</a></ul><h3>Backup and Recovery</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/backup-and-recovery/disaster-recovery/">Disaster Recovery</a><li><a class="docs-link" href="/docs/backup-and-recovery/replication/">Replication</a><li><a class="docs-link" href="/docs/backup-and-recovery/strategies/">Backup Strategies</a></ul><h3>ZFS in Production</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/production/enterprise/">Enterprise Deployment</a><li><a class="docs-link" href="/docs/production/large-scale/">Large Scale Deployments</a></ul><h3>Troubleshooting and Maintenance</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/troubleshooting/common-issues/">Common Issues and Solutions</a><li><a class="docs-link" href="/docs/troubleshooting/debugging/">Debugging ZFS</a></ul><h3>Migration Guides</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/migrating/btrfs/">BTRFS</a><li><a class="docs-link" href="/docs/migrating/ext4/">EXT4</a><li><a class="docs-link" href="/docs/migrating/lvm/">LVM</a><li><a class="docs-link" href="/docs/migrating/vxvm/">VxVM</a><li><a class="docs-link" href="/docs/migrating/xfs/">XFS</a></ul><h3>References</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/references/glossary/">Glossary</a><li><a class="docs-link" href="/docs/references/cheatsheet/">ZFS Cheat Sheet</a><li><a class="docs-link" href="/docs/references/command-reference/">ZFS Command Reference</a></ul><h3>Misceleaneous</h3><ul class="list-unstyled"><li><a class="docs-link" href="/docs/misceleaneous/comparison/">FS &amp; LVM Comparison</a><li><a class="docs-link" href="/docs/misceleaneous/legal/">ZFS License and Legal Considerations</a></ul></nav></div><nav aria-label="Secondary navigation" class="docs-toc d-none d-xl-block col-xl-3"><div class="page-links"><h3>On this page</h3><nav id="TableOfContents"><ul><li><a href="/docs/advanced-zfs/performance-tuning/#tuning-zfs-for-different-workloads">Tuning ZFS for Different Workloads</a><li><a href="/docs/advanced-zfs/performance-tuning/#adjusting-arc-adaptive-replacement-cache">Adjusting ARC (Adaptive Replacement Cache)</a><li><a href="/docs/advanced-zfs/performance-tuning/#zil-zfs-intent-log-and-slog-separate-log-device">ZIL (ZFS Intent Log) and SLOG (Separate Log Device)</a></ul></nav></div></nav><main class="docs-content col-lg-11 col-xl-9"><h1>Performance Tuning</h1><h3 id="tuning-zfs-for-different-workloads">Tuning ZFS for Different Workloads</h3><p>ZFS is highly flexible and can be tuned to optimize performance for specific workloads. Different workloads, such as sequential write-heavy applications (e.g., backups or media streaming) versus random read-heavy applications (e.g., databases), require different performance optimizations.<p>For write-heavy workloads, enabling ZFS's compression feature may improve performance, as less data is written to the disks. The <code>lz4</code> compression algorithm, for instance, offers a balance between compression speed and efficiency, and is often recommended for general use:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">zfs</span><span> set compression=lz4 mypool/mydataset
+</span></code></pre><p>In workloads with high read demands, ensuring that the Adaptive Replacement Cache (ARC) is properly sized can significantly improve performance. For large-scale datasets, adjusting the block size with <code>recordsize</code> may optimize I/O performance. The default record size in ZFS is 128 KB, but this can be adjusted:<ul><li><strong>For databases</strong> that access small blocks of data frequently, setting the <code>recordsize</code> to 16 KB or 8 KB might help.</ul><pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">zfs</span><span> set recordsize=16K mypool/mydataset
+</span></code></pre><ul><li><strong>For media files</strong> or other large, sequential workloads, a larger <code>recordsize</code> (1 MB or more) may be beneficial.</ul><pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">zfs</span><span> set recordsize=1M mypool/mydataset
+</span></code></pre><h3 id="adjusting-arc-adaptive-replacement-cache">Adjusting ARC (Adaptive Replacement Cache)</h3><p>The <strong>ARC (Adaptive Replacement Cache)</strong> is a critical component of ZFS that stores frequently accessed data in memory (RAM) to reduce the need for disk access. ARC is dynamically sized but can be manually tuned depending on the available memory and the needs of the workload.<p>The size of the ARC can be adjusted by setting the <code>zfs_arc_max</code> parameter, which defines the upper limit of memory that ARC can consume. This value is typically set in <code>/etc/modprobe.d/zfs.conf</code> on Linux or <code>/boot/loader.conf</code> on FreeBSD:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#96b5b4">echo </span><span>"</span><span style="color:#a3be8c">options zfs zfs_arc_max=8589934592</span><span>" &gt;&gt; /etc/modprobe.d/zfs.conf   </span><span style="color:#65737e"># Example for 8 GB ARC
+</span></code></pre><p>The ARC is split into two caches:<ul><li><strong>Most Recently Used (MRU)</strong>: For data that has been accessed recently.<li><strong>Most Frequently Used (MFU)</strong>: For data that has been accessed frequently over time.</ul><p>ZFS will automatically adjust the balance between MRU and MFU based on usage patterns, optimizing memory utilization. For systems with limited RAM, lowering the ARC size can help free up memory for other processes. However, reducing ARC size too much may lead to performance degradation due to increased disk reads.<h3 id="zil-zfs-intent-log-and-slog-separate-log-device">ZIL (ZFS Intent Log) and SLOG (Separate Log Device)</h3><p>The <strong>ZFS Intent Log (ZIL)</strong> is a special part of ZFS that ensures data consistency for synchronous writes. When an application performs a synchronous write (such as a database transaction), ZFS writes the data to the ZIL before confirming to the application that the data is safely written. If a system crash occurs, ZFS uses the ZIL to recover incomplete transactions.<p>The <strong>Separate Log Device (SLOG)</strong> is an optional dedicated device that can be added to offload the ZIL from the primary pool. Using a fast, low-latency device like an SSD for the SLOG can significantly improve performance for workloads with high volumes of synchronous writes.<p>To add a SLOG device to a ZFS pool, use the following command:<pre class="language-bash" data-lang="bash" style="background:#2b303b;color:#c0c5ce"><code class="language-bash" data-lang="bash"><span style="color:#bf616a">zpool</span><span> add mypool log /dev/sdX
+</span></code></pre><p>This command adds a dedicated log device (<code>/dev/sdX</code> in this example) to the pool. When the SLOG is present, ZFS will use it to store the ZIL, reducing the latency of synchronous writes. It is important to note that the SLOG only caches data temporarily until it is committed to the main pool, so it does not increase storage capacity.<p>The SLOG can be particularly beneficial for applications such as databases or NFS servers, where low-latency synchronous writes are essential. However, for workloads that predominantly involve asynchronous writes (such as large file transfers), the SLOG may not provide significant performance improvements.<div class="docs-navigation d-flex justify-content-between"><a href="/docs/zfs-administration/zfs-administration/"> <div class="card my-1"><div class="card-body py-2">← ZFS Administration</div></div> </a><a class="ms-auto" href="/docs/security/encryption/"> <div class="card my-1"><div class="card-body py-2">Encryption →</div></div> </a></div></main></div></div></div><footer class="footer text-muted"><div class="container"><div class="row"><div class="col-lg-8 order-last order-lg-first"><ul class="list-inline"><li class="list-inline-item">Powered by <a href="https://www.makesite.sh/">makesite.sh</a>, a <a href="https://www.dutchbsd.com/">DutchBSD B.V.</a> product.</ul></div><div class="col-lg-8 order-first order-lg-last text-lg-end"><ul class="list-inline"></ul></div></div></div></footer>
