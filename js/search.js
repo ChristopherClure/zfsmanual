@@ -251,6 +251,7 @@ function getByteByHex(hexCode) {
   var index = elasticlunr.Index.load(window.searchIndex);
   userinput.addEventListener('input', show_results, true);
   suggestions.addEventListener('click', accept_suggestion, true);
+  userinput.closest('form').addEventListener('submit', function (e) { e.preventDefault(); });
 
   function show_results() {
     var value = this.value.trim();
