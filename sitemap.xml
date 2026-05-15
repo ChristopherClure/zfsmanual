@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://zfs.clure.net/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/advanced-zfs/compression/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/advanced-zfs/data-integrity-and-self-healing/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/advanced-zfs/deduplication/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/advanced-zfs/performance-tuning/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/backup-and-recovery/disaster-recovery/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/backup-and-recovery/replication/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/backup-and-recovery/strategies/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/getting-started/freebsd-install/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/getting-started/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/getting-started/introduction/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/getting-started/linux-install/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/migrating/btrfs/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/migrating/ext4/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/migrating/lvm/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/migrating/vxvm/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/migrating/xfs/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/misceleaneous/comparison/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/misceleaneous/legal/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/production/enterprise/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/production/large-scale/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/references/cheatsheet/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/references/command-reference/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/references/glossary/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/security/access-control/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/security/encryption/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/troubleshooting/common-issues/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/troubleshooting/debugging/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/zfs-administration/zfs-administration/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/zfs-administration/zpool-administration/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/zfs-architecture/basic-components/</loc></url>
+  <url><loc>https://zfs.clure.net/docs/zfs-architecture/zfs-architecture/</loc></url>
+</urlset>
